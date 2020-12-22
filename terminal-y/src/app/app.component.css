@@ -1,0 +1,149 @@
+.WhiteHeader {
+    width: 100%;
+    position: relative;
+    z-index: 10000;
+}
+
+.WhiteHeader_upperBar {
+    box-shadow: 0 1px rgba(32,33,37,0.12);
+    position: relative;
+    height: 85px;
+}
+
+.WhiteHeader_lowerBar {
+    height: 40px;
+    box-shadow: 0 1px rgba(32,33,37,0.12);
+    position: relative;
+}
+
+.WhiteHeader_container {
+    margin: auto;
+    max-width: 1200px;
+    padding: 0 30px;
+    height: 100%; 
+    /* display: flex;
+    align-items: center;
+    flex-wrap: wrap;  */
+}
+
+.WhiteHeader_left {
+}
+
+.WhiteHeader_center {
+    flex: 2;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.WhiteHeader_right {
+    flex: 1;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+svg text {
+    stroke: white;
+    font-size: 120px;
+    font-weight: 700;
+    stroke-width: 3;
+    animation: textAnimate 5s;
+}
+
+@keyframes textAnimate {
+    0% {
+        stroke-dasharray: 0 50%;
+    }
+    100% {
+        stroke-dasharray: 50% 0;
+    }
+}
+
+.Login, .Register, body {
+    font-size: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    cursor: pointer;
+}
+
+.icon {
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.SearchBox{
+    background-color: white !important;
+}
+
+/*search*/
+input {
+	outline: none;
+}
+input[type=search] {
+	-webkit-appearance: textfield;
+	-webkit-box-sizing: content-box;
+	font-family: inherit;
+	font-size: 100%;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+	display: none; 
+}
+
+
+input[type=search] {
+	background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+	border: solid 1px #ccc;
+	padding: 9px 10px 9px 32px;
+	width: 55px;
+	
+	-webkit-border-radius: -10em;
+	-moz-border-radius: -10em;
+	border-radius: 10em;
+	
+	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
+	transition: all .5s;
+}
+input[type=search]:focus {
+	width: 130px;
+	background-color: #fff;
+	border-color: #66CC75;
+	
+	-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+	-moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+	box-shadow: 0 0 5px rgba(109,207,246,.5);
+}
+
+
+input:-moz-placeholder {
+	color: #999;
+}
+input::-webkit-input-placeholder {
+	color: #999;
+}
+
+/* men and women button */
+.menBtn {
+    position: relative;
+    padding: 0 2.25rem;
+    line-height: 2.25rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    color: rgba(32,33,37,0.975);
+    transition: color 0.1s ease-out;
+    cursor: pointer;
+}
+
+.womenBtn {
+    border-left: 1px solid rgba(32,33,37,0.12);
+    position: relative;
+    padding: 0 2.25rem;
+    line-height: 2.25rem;
+    font-size: 1rem;
+    white-space: nowrap;
+    color: rgba(32,33,37,0.975);
+    transition: color 0.1s ease-out;
+    cursor: pointer;
+}
