@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-clothes',
@@ -7,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClothesComponent implements OnInit {
   panelOpenState = false;
+  @Output() countItems = new EventEmitter<number>();
+  @Output() countFavor = new EventEmitter<number>();
+
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  addToCart(count) {
+    this.countItems.emit(count);
+  }
+
+  addToFavor(count) {
+    this.countFavor.emit(count);
   }
 
 }

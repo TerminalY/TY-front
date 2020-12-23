@@ -2,59 +2,58 @@
     <h1>Men Suits</h1>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center">
-    <div fxFlex='20' class='filters' >
-        <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap='10px'> 
-           <div class='Text'>Filter By</div>
-           <div class='filterKind'> 
-               <mat-accordion>
-                <mat-expansion-panel (opened)="panelOpenState = true"
-                (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                <mat-panel-title>
-                    Size
-                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <p>XS</p>
-                <p>S</p>
-                <p>M</p>
-                <p>L</p>
-                <p>XL</p>
-                <p>XXL</p>
-                </mat-expansion-panel>
-            </mat-accordion>
-           </div>
+    <div fxFlex='20' class='filters'>
+        <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap='10px'>
+            <div class='Text'>Filter By</div>
+            <div class='filterKind'>
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Size
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <p>XS</p>
+                        <p>S</p>
+                        <p>M</p>
+                        <p>L</p>
+                        <p>XL</p>
+                        <p>XXL</p>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
         </div>
     </div>
     <div class='clothes' fxFlex='80'>
-            <div class='items' fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap='10px'>
-    <div class='card' fxFlex='30'>
-    <app-card></app-card>
+        <div class='items' fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap='10px'>
+            <div class='card' fxFlex='30'>
+                <app-card (countCart)='addToCart($event)' (countFavor)='addToFavor($event)'></app-card>
+            </div>
+            <div class='card' fxFlex='30'>
+                <app-card></app-card>
+            </div>
+            <div class='card' fxFlex='30'>
+                <app-card></app-card>
+            </div>
+            <div class='card' fxFlex='28'>
+                <app-card></app-card>
+            </div>
+            <div class='card' fxFlex='28'>
+                <app-card></app-card>
+            </div>
+            <div class='card' fxFlex='28'>
+                <app-card></app-card>
+            </div>
+            <div class='card' fxFlex='28'>
+                <app-card></app-card>
+            </div>
+            <div class='card' fxFlex='28'>
+                <app-card></app-card>
+            </div>
+            <div class='card' fxFlex='28'>
+                <app-card></app-card>
+            </div>
+        </div>
     </div>
-    <div class='card' fxFlex='30'>
-    <app-card></app-card>
-    </div>
-    <div class='card' fxFlex='30'>
-    <app-card></app-card>
-    </div>
-    <div class='card' fxFlex='28'>
-    <app-card></app-card>
-    </div>
-    <div class='card' fxFlex='28'>
-    <app-card></app-card>
-    </div>
-    <div class='card' fxFlex='28'>
-    <app-card></app-card>
-    </div>
-    <div class='card' fxFlex='28'>
-    <app-card></app-card>
-    </div>
-    <div class='card' fxFlex='28'>
-    <app-card></app-card>
-    </div>
-    <div class='card' fxFlex='28'>
-    <app-card></app-card>
-    </div>
-            </div> 
-    </div>    
 
 </div>

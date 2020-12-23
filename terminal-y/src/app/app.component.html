@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <header class='WhiteHeader'>
   <!--Upper nav-->
   <nav class='WhiteHeader_upperBar'>
@@ -13,7 +11,7 @@
         </svg>
       </div>
       <!--Profile-->
-      <div fxFlexOffset="50" fxFlex='35'>
+      <div fxFlexOffset="48" fxFlex='37'>
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap='15px'>
           <div >
             <form>
@@ -27,10 +25,10 @@
               Register
             </div>
             <div>
-              <mat-icon class='icon'>shopping_cart</mat-icon>
+              <mat-icon class='icon' matBadge="{{countCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
             </div>
             <div>
-              <mat-icon class='icon'>favorite</mat-icon>
+              <mat-icon class='icon' matBadge="{{countFavor}}" matBadgeColor="warn">favorite</mat-icon>
             </div>
         </div>
       </div>
@@ -39,12 +37,41 @@
   <!--Lower nav-->
   <nav class='WhiteHeader_lowerBar'>
     <div>
-      <a class='menBtn'>men</a>
-      <a class='womenBtn'>women</a>
+      <button class='menBtn' mat-button [matMenuTriggerFor]="kindMenu">Men</button>
+      <button class='womenBtn' mat-button [matMenuTriggerFor]="kindMenu">Women</button>
+      <mat-menu #kindMenu="matMenu" xPosition="after" class='sizeMenu'>
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" >
+            <div fxFlexOffset='15' fxFlex='35'>
+              <strong><u>Suits</u></strong>
+              <p>test1</p>
+              <p>test1</p>
+              <p>test1</p>
+              <p>test1</p>
+            </div>
+            <div fxFlexOffset='15' fxFlex='35'>
+              <strong><u>T-shirts</u></strong>
+              <p>test1</p>
+              <p>test1</p>
+              <p>test1</p>
+              <p>test1</p>
+            </div>
+            <div fxFlexOffset='15' fxFlex='35'>
+              <strong><u>Socks</u></strong>
+              <p>test1</p>
+              <p>test1</p>
+              <p>test1</p>
+              <p>test1</p>
+            </div>
+            <div fxFlexOffset='15' fxFlex='35'>
+              <strong><u>Shoes</u></strong>
+              <p>test1</p>
+              <p>test1</p>
+              <p>test1</p>
+              <p>test1</p>
+            </div>
+      </div>
+      </mat-menu>
     </div>
   </nav>
 </header>
-<body>
-  <app-clothes></app-clothes>
-</body>
-</html>
+<app-clothes (countItems)='changeCountCart($event)' (countFavor)='changeCountFavor($event)'></app-clothes>

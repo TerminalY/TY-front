@@ -1,7 +1,7 @@
 .WhiteHeader {
     width: 100%;
     position: relative;
-    z-index: 10000;
+    /* z-index: 10000; */
 }
 
 .WhiteHeader_upperBar {
@@ -147,3 +147,8 @@ input::-webkit-input-placeholder {
     transition: color 0.1s ease-out;
     cursor: pointer;
 }
+
+::ng-deep .mat-menu-panel {
+    width: 100vw!important;
+    height: 50vh !important;
+  }
