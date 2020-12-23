@@ -1,0 +1,31 @@
+.items {
+    width: 100%;
+}
+
+.card {
+    padding: 20px;
+}
+
+.title {
+    padding: 5px;
+}
+
+.clothes {
+    border-left: 1px solid rgba(32,33,37,0.12);
+}
+
+.filters {
+    height: 1440px;
+}
+
+.Text {
+    font-size: large;
+    box-shadow: 0 1px rgba(0, 0, 0, 0.12);
+    width: 100%;
+}
+
+.filterKind {
+    font-size: large;
+    box-shadow: 0 1px rgba(121, 121, 121, 0.12);
+    width: 100%;
+}
