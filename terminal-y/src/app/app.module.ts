@@ -9,12 +9,16 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CardComponent } from './components/card/card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ClothesComponent } from './views/clothes/clothes.component';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardComponent,
-    ClothesComponent
+    ClothesComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -25,9 +29,7 @@ import { ClothesComponent } from './views/clothes/clothes.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
