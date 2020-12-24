@@ -1,4 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ICloth } from 'src/app/models';
+import { ClothesService } from 'src/app/services/clothes/clothes.service';
 
 @Component({
   selector: 'app-clothes',
@@ -7,13 +10,22 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class ClothesComponent implements OnInit {
   panelOpenState = false;
+
+  clothes$: Observable<ICloth>;
+
   @Output() countItems = new EventEmitter<number>();
   @Output() countFavor = new EventEmitter<number>();
 
 
-  constructor() { }
+  constructor(public clothService: ClothesService) { }
 
   ngOnInit(): void {
+    this.clothes$ = this.clothService.findClothes({});
+
+    this.clothes$.subscribe(cloth => {
+      console.log(cloth)
+    });
+    
   }
 
   addToCart(count) {

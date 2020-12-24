@@ -26,7 +26,11 @@
     </div>
     <div class='clothes' fxFlex='80'>
         <div class='items' fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap='10px'>
-            <div class='card' fxFlex='30'>
+            <div class='card' fxFlex='30' *ngFor="let cloth of (this.clothes$ | async)">
+                <app-card [cloth]="cloth" (countCart)='addToCart($event)' (countFavor)='addToFavor($event)'></app-card>
+            </div>
+
+            <!--<div class='card' fxFlex='30'>
                 <app-card (countCart)='addToCart($event)' (countFavor)='addToFavor($event)'></app-card>
             </div>
             <div class='card' fxFlex='30'>
@@ -52,7 +56,7 @@
             </div>
             <div class='card' fxFlex='28'>
                 <app-card></app-card>
-            </div>
+            </div>-->
         </div>
     </div>
 

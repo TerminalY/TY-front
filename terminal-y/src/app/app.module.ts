@@ -4,9 +4,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './material-module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CardComponent } from './components/card/card.component';
+import { HttpClientModule } from '@angular/common/http';
 import { ClothesComponent } from './views/clothes/clothes.component';
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ClothesComponent } from './views/clothes/clothes.component';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

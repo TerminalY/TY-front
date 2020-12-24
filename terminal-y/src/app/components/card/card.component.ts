@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ICloth } from 'src/app/models';
 
 @Component({
   selector: 'app-card',
@@ -7,13 +8,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  @Output() countCart = new EventEmitter<number>();
-  @Output() countFavor = new EventEmitter<number>();
-
   countItems = 0;
   countFavorite = 0;
   messageCart = 'This item added to cart';
   messageFavor = 'This item added to Favorite';
+
+  @Input() cloth: ICloth;
+
+  @Output() countCart = new EventEmitter<number>();
+  @Output() countFavor = new EventEmitter<number>();
 
   constructor(private _snackBar: MatSnackBar) { }
 
