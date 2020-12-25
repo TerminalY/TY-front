@@ -5,17 +5,34 @@ import { MaterialModule } from './material-module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CardComponent } from './components/card/card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ClothesComponent } from './views/clothes/clothes.component';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
+import { RouterModule, Routes } from '@angular/router';
+import { MainPageComponent } from './views/main-page/main-page.component';
+import { ViewCardComponent } from './dialogs/view-card/view-card.component';
+
+const appRoutes: Routes = [
+  { path: '', component: MainPageComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent }
+
+  
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     CardComponent,
-    ClothesComponent
+    ClothesComponent,
+    LoginComponent,
+    RegisterComponent,
+    MainPageComponent,
+    ViewCardComponent
   ],
+  exports: [RouterModule],
   imports: [
     BrowserModule,
     FlexLayoutModule,
@@ -23,11 +40,14 @@ import { ClothesComponent } from './views/clothes/clothes.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
-  providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-  ],
+  entryComponents: [ViewCardComponent],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

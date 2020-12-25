@@ -21,11 +21,33 @@
 .Text {
     font-size: large;
     box-shadow: 0 1px rgba(0, 0, 0, 0.12);
-    width: 100%;
+    width: 95%;
 }
 
 .filterKind {
     font-size: large;
     box-shadow: 0 1px rgba(121, 121, 121, 0.12);
+    width: 95%;
+}
+
+.clothesHeight {
+    height: 1440px;
+    border-left: 1px solid rgba(32,33,37,0.12);
+}
+
+.filterByProp {
     width: 100%;
+}
+
+.accordionSize {
+    width: 95%;
+}
+
+.colorSize{ 
+    color: grey;
+}
+
+::ng-deep.mat-slider-thumb-label {
+    width: 35px !important;
+    height: 35px !important;
 }
