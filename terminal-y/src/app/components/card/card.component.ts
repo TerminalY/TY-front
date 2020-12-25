@@ -44,10 +44,10 @@ export class CardComponent implements OnInit {
   openViewCard() {
     this.dialog.open(ViewCardComponent, {
       data: {
-        image: "https://media.terminalx.com/pub/media/catalog/product/cache/92af6b9c945798a7e3b64d91033084b3/x/6/x609190008-11607527102.jpg",
+        img: "https://media.terminalx.com/pub/media/catalog/product/cache/92af6b9c945798a7e3b64d91033084b3/x/6/x609190008-11607527102.jpg",
         name: this.cloth.name,
         price: this.cloth.price,
-        colors: this.cloth.color 
+        color: this.cloth.color 
       },
       height: "90%",
       width: "70%",
