@@ -10,8 +10,20 @@ import { ICloth } from 'src/app/models';
 export class ViewCardComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ICloth) { }
-
+  colors = [];
+  sizes = [];
   ngOnInit(): void {
+    this.colors = Object.keys(this.data.properties);
+    // TODO: change this to only show sizes of selected color
+    // now showing all sizes of all colors
+    this.colors.forEach(color => {
+      this.data.properties[color].forEach(tuple => {
+        if(!this.sizes.includes(tuple[0])) {
+          this.sizes.push(tuple[0]);
+        }
+      })
+
+    });
   }
 
 }

@@ -15,6 +15,8 @@ export class CardComponent implements OnInit {
   messageCart = 'This item added to cart';
   messageFavor = 'This item added to Favorite';
 
+  colors;
+
   @Input() cloth: ICloth;
 
   @Output() countCart = new EventEmitter<number>();
@@ -23,6 +25,7 @@ export class CardComponent implements OnInit {
   constructor(private _snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.colors = Object.keys(this.cloth.properties);
   }
 
   addToCart() {
@@ -43,12 +46,7 @@ export class CardComponent implements OnInit {
 
   openViewCard() {
     this.dialog.open(ViewCardComponent, {
-      data: {
-        img: "https://media.terminalx.com/pub/media/catalog/product/cache/92af6b9c945798a7e3b64d91033084b3/x/6/x609190008-11607527102.jpg",
-        name: this.cloth.name,
-        price: this.cloth.price,
-        color: this.cloth.color 
-      },
+      data: this.cloth,
       height: "90%",
       width: "70%",
       disableClose: true

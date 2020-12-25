@@ -1,12 +1,13 @@
+// color : [size, stock]
+type ClothProperties = { [color: string]: [string, number][]}
+
 export interface ICloth {
-    name?: string;
-    type?: string;
-    size?: string;
-    price?: Number;
-    color?: string;
-    amount?: Number;
+    name: string;
+    type: string;
+    price: Number;
     gender?: string;
     img?: string;
+    properties: ClothProperties;
 }
 
 export interface IClothFilter {
