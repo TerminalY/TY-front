@@ -3,11 +3,15 @@
     width: 85%;
   }
   
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
-
-  .image:hover {
-    transform: scale(1.1);
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
 }
+
+.image:hover {
+  transform: scale(1.1);
+}
+
+.image {
+  cursor: pointer;
+} 

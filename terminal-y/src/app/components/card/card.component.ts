@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ViewCardComponent } from 'src/app/dialogs/view-card/view-card.component';
 import { ICloth } from 'src/app/models';
 
 @Component({
@@ -18,7 +20,7 @@ export class CardComponent implements OnInit {
   @Output() countCart = new EventEmitter<number>();
   @Output() countFavor = new EventEmitter<number>();
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
@@ -36,6 +38,20 @@ export class CardComponent implements OnInit {
     this.countFavor.emit(this.countFavorite);
     this._snackBar.open(this.messageFavor, null ,{
       duration: 2000,
+    });
+  }
+
+  openViewCard() {
+    this.dialog.open(ViewCardComponent, {
+      data: {
+        image: "https://media.terminalx.com/pub/media/catalog/product/cache/92af6b9c945798a7e3b64d91033084b3/x/6/x609190008-11607527102.jpg",
+        name: this.cloth.name,
+        price: this.cloth.price,
+        colors: this.cloth.color 
+      },
+      height: "90%",
+      width: "70%",
+      disableClose: true
     });
   }
 }

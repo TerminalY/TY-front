@@ -22,19 +22,6 @@
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-around center" class='filterByProp'>
-                <div fxFlexOffset='3' fxFlex='17'>price:</div>
-                <mat-slider
-                fxFlex='80'
-                class="example-margin"
-                [max]="max"
-                [min]="min"
-                [step]="step"
-                [thumbLabel]="thumbLabel"
-                [displayWith]="formatLabel"
-                [(ngModel)]="value">
-            </mat-slider>
-            </div>
             <div fxLayout="row wrap" fxLayoutAlign="space-around center" class='filterByProp'>
                 <mat-accordion class='accordionSize'>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -71,6 +58,19 @@
                     </div>
                     </mat-expansion-panel>
                 </mat-accordion>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-around center" class='filterByProp'>
+                <div fxFlexOffset='3' fxFlex='17'>price:</div>
+                <mat-slider
+                fxFlex='80'
+                class="example-margin"
+                [max]="max"
+                [min]="min"
+                [step]="step"
+                [thumbLabel]="thumbLabel"
+                [displayWith]="formatLabel"
+                [(ngModel)]="value">
+            </mat-slider>
             </div>
         </div>
     </div>

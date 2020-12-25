@@ -12,6 +12,7 @@ import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './views/main-page/main-page.component';
+import { ViewCardComponent } from './dialogs/view-card/view-card.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     ClothesComponent,
     LoginComponent,
     RegisterComponent,
-    MainPageComponent
+    MainPageComponent,
+    ViewCardComponent
   ],
   exports: [RouterModule],
   imports: [
@@ -44,6 +46,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
+  entryComponents: [ViewCardComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
