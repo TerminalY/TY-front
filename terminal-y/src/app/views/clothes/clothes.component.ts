@@ -11,6 +11,13 @@ import { ClothesService } from 'src/app/services/clothes/clothes.service';
 export class ClothesComponent implements OnInit {
   panelOpenState = false;
 
+  // slider variables
+  max = 1000;
+  min = 0;
+  step = 1;
+  thumbLabel = true;
+  value = 0;
+
   clothes$: Observable<ICloth>;
 
   @Output() countItems = new EventEmitter<number>();

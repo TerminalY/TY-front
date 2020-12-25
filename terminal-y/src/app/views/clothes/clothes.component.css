@@ -21,15 +21,27 @@
 .Text {
     font-size: large;
     box-shadow: 0 1px rgba(0, 0, 0, 0.12);
-    width: 100%;
+    width: 95%;
 }
 
 .filterKind {
     font-size: large;
     box-shadow: 0 1px rgba(121, 121, 121, 0.12);
-    width: 100%;
+    width: 95%;
 }
 
 .clothesHeight {
     height: 1440px;
+}
+
+.filterByProp {
+    width: 100%;
+}
+
+.accordionSize {
+    width: 95%;
+}
+
+.colorSize{ 
+    color: grey;
 }

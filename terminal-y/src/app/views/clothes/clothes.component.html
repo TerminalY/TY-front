@@ -6,19 +6,68 @@
         <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap='10px'>
             <div class='Text'>Filter By</div>
             <div class='filterKind'>
-                <mat-accordion>
+                <mat-accordion class='accordionSize'>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 Size
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <p>XS</p>
-                        <p>S</p>
-                        <p>M</p>
-                        <p>L</p>
-                        <p>XL</p>
-                        <p>XXL</p>
+                        <p class='colorSize'>XS</p>
+                        <p class='colorSize'>S</p>
+                        <p class='colorSize'>M</p>
+                        <p class='colorSize'>L</p>
+                        <p class='colorSize'>XL</p>
+                        <p class='colorSize'>XXL</p>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-around center" class='filterByProp'>
+                <div fxFlexOffset='3' fxFlex='17'>price:</div>
+                <mat-slider
+                fxFlex='80'
+                class="example-margin"
+                [max]="max"
+                [min]="min"
+                [step]="step"
+                [thumbLabel]="thumbLabel"
+                [(ngModel)]="value">
+            </mat-slider>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-around center" class='filterByProp'>
+                <mat-accordion class='accordionSize'>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Color
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <svg height="37" width="30" fxFlex=20>
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="blue" />
+                        </svg>
+                        <svg height="37" width="30" fxFlex=20>
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="yellow" />
+                        </svg>
+                        
+                        <svg height="37" width="30" fxFlex=20>
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="green" />
+                        </svg>
+                        
+                        <svg height="37" width="30" fxFlex=20>
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="white" />
+                        </svg>
+                        <svg height="37" width="30" fxFlex=20>
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="red" />
+                        </svg>
+                        <svg height="37" width="30" fxFlex="20">
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="orange" />
+                        </svg>
+                        <svg height="37" width="30" fxFlex="20"
+                        >
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="brown" />
+                        </svg>
+                    </div>
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
