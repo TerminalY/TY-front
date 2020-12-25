@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ICloth } from 'src/app/models';
 import { ClothesService } from 'src/app/services/clothes/clothes.service';
 
@@ -10,6 +10,9 @@ import { ClothesService } from 'src/app/services/clothes/clothes.service';
 })
 export class ClothesComponent implements OnInit {
   panelOpenState = false;
+  private countProduct: BehaviorSubject<number>;
+  private countFavorite: BehaviorSubject<number>;
+
 
   // slider variables
   max = 1000;
@@ -24,7 +27,10 @@ export class ClothesComponent implements OnInit {
   @Output() countFavor = new EventEmitter<number>();
 
 
-  constructor(public clothService: ClothesService) { }
+  constructor(public clothService: ClothesService) { 
+    this.countProduct = new BehaviorSubject(0);
+    this.countFavorite = new BehaviorSubject(0);
+  }
 
   ngOnInit(): void {
     this.clothes$ = this.clothService.findClothes({});
@@ -35,12 +41,14 @@ export class ClothesComponent implements OnInit {
     
   }
 
-  addToCart(count) {
-    this.countItems.emit(count);
+  addToCart() {
+    this.countProduct.next(this.countProduct.getValue() + 1)
+    this.countItems.emit(this.countProduct.getValue());
   }
 
-  addToFavor(count) {
-    this.countFavor.emit(count);
+  addToFavor() {
+    this.countFavorite.next(this.countFavorite.getValue() + 1)
+    this.countFavor.emit(this.countFavorite.getValue());
   }
 
 }
