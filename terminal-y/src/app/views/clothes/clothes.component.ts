@@ -51,4 +51,8 @@ export class ClothesComponent implements OnInit {
     this.countFavor.emit(this.countFavorite.getValue());
   }
 
+  formatLabel(value: number) {
+    return value + '₪';
+  }
+
 }

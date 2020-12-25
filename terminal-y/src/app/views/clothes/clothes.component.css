@@ -46,3 +46,8 @@
 .colorSize{ 
     color: grey;
 }
+
+::ng-deep.mat-slider-thumb-label {
+    width: 35px !important;
+    height: 35px !important;
+}
