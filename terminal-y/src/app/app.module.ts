@@ -5,12 +5,21 @@ import { MaterialModule } from './material-module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CardComponent } from './components/card/card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ClothesComponent } from './views/clothes/clothes.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import { RouterModule, Routes } from '@angular/router';
+import { MainPageComponent } from './views/main-page/main-page.component';
+
+const appRoutes: Routes = [
+  { path: '', component: MainPageComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent }
+
+  
+];
 
 @NgModule({
   declarations: [
@@ -18,8 +27,10 @@ import { RegisterComponent } from './views/register/register.component';
     CardComponent,
     ClothesComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    MainPageComponent
   ],
+  exports: [RouterModule],
   imports: [
     BrowserModule,
     FlexLayoutModule,
@@ -27,7 +38,11 @@ import { RegisterComponent } from './views/register/register.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
