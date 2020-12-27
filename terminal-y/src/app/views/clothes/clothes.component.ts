@@ -34,11 +34,6 @@ export class ClothesComponent implements OnInit {
 
   ngOnInit(): void {
     this.clothes$ = this.clothService.findClothes({});
-
-    this.clothes$.subscribe(cloth => {
-      console.log(cloth)
-    });
-    
   }
 
   addToCart() {
