@@ -20,11 +20,17 @@
                 <input type="search" placeholder="Search">
               </form>
             </div>
-              <div class='Login' routerLink="/login">
+              <div class='Login' *ngIf='!accountName' routerLink="/login">
                 Login
               </div>
-              <div class='Register' routerLink="/register">
+              <div class='Register' *ngIf='!accountName' routerLink="/register">
                 Register
+              </div>
+              <div class='Register' *ngIf='accountName'>
+                <button mat-button [matMenuTriggerFor]="menu"> Hi {{ accountName }} !</button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)='logout()'>Logout<mat-icon>exit_to_app</mat-icon></button>
+                </mat-menu>
               </div>
               <div>
                 <mat-icon class='icon' matBadge="{{countCart}}" matBadgeColor="warn">shopping_cart</mat-icon>

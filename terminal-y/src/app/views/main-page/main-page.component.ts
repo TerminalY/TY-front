@@ -9,10 +9,12 @@ export class MainPageComponent implements OnInit {
   title = 'terminal-y';
   countCart = 0;
   countFavor = 0;
+  accountName = undefined;
 
   constructor() {}
 
   ngOnInit(): void {
+    this.accountName = localStorage.getItem('name');
   }
 
   changeCountCart(count) {
@@ -21,6 +23,11 @@ export class MainPageComponent implements OnInit {
 
   changeCountFavor(count) {
     this.countFavor = count;
+  }
+
+  logout() {
+    localStorage.removeItem('name');
+    location.reload();
   }
 
 }
