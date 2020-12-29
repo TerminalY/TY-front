@@ -28,7 +28,7 @@
                     <h2>Size:</h2>
                     <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap='20px'>
                         <div *ngFor="let size of sizes" class='colorSizes' (click)="sizeClicked($event, size)">
-                            <p><b *ngIf="currSize==size">{{ size }}</b></p>
+                            <p><b *ngIf="currSize==size"><u>{{ size }}</u></b></p>
                             <p *ngIf="currSize!=size">{{ size }}</p>
                         </div>
                     </div>

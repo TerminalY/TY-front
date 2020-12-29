@@ -32,28 +32,24 @@
                         </mat-expansion-panel-header>
                         <div fxLayout="row wrap" fxLayoutAlign="start center">
                         <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="blue" />
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#6b676b" />
                         </svg>
                         <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="yellow" />
-                        </svg>
-                        
-                        <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="green" />
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#f587d8" />
                         </svg>
                         
                         <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="white" />
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#5ca83e" />
+                        </svg>
+                        
+                        <svg height="37" width="30" fxFlex=20>
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#2990ff" />
                         </svg>
                         <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="red" />
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#ffffff" />
                         </svg>
                         <svg height="37" width="30" fxFlex="20">
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="orange" />
-                        </svg>
-                        <svg height="37" width="30" fxFlex="20"
-                        >
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="brown" />
+                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#292929" />
                         </svg>
                     </div>
                     </mat-expansion-panel>
@@ -74,7 +70,7 @@
             </div>
         </div>
     </div>
-    <div class='clothes' fxFlex='80' class='clothesHeight'>
+    <div class='clothes clothesHeight' fxFlex='80'>
         <div class='items' fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap='10px'>
             <ng-container *ngFor="let cloth of (this.clothes$ | async)">
                 <div class='card' fxFlex='30'>
