@@ -29,6 +29,7 @@
               <div class='Register' *ngIf='accountName'>
                 <button mat-button [matMenuTriggerFor]="menu"> Hi {{ accountName }} !</button>
                 <mat-menu #menu="matMenu">
+                  <button mat-menu-item >My Terminal Y</button>
                   <button mat-menu-item (click)='logout()'>Logout<mat-icon>exit_to_app</mat-icon></button>
                 </mat-menu>
               </div>
