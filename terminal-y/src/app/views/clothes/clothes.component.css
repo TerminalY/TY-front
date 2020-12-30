@@ -12,6 +12,12 @@
 
 .clothes {
     border-left: 1px solid rgba(32,33,37,0.12);
+    overflow-y: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.clothes::-webkit-scrollbar {
+    display: none;
 }
 
 .filters {

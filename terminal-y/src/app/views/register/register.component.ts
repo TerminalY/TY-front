@@ -1,7 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { AccountService } from 'src/app/services/account/account.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit {
   post: any = '';
   hide = true;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private accountService: AccountService,
+    private router: Router) { }
 
   ngOnInit() {
     localStorage.removeItem('username');
@@ -64,8 +66,11 @@ export class RegisterComponent implements OnInit {
       this.formGroup.get('password').hasError('requirements') ? 'Password needs to be at least eight characters, one uppercase letter and one number' : '';
   }
 
- async onSubmit(post) {
-    window.location.href = window.location.hostname;
+  onSubmit(post) {
+    this.accountService.registration(post).subscribe();
+    localStorage.setItem('name', post.name);
+    this.router.navigate(['']);
+
   }
 
 }

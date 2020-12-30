@@ -20,3 +20,9 @@ export interface IClothFilter {
     amount?: Number;
     gender?: string;
 }
+
+export interface IUser {
+    userName: string;
+    email: string;
+    password: string;
+}

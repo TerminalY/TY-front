@@ -148,7 +148,12 @@ input::-webkit-input-placeholder {
     cursor: pointer;
 }
 
-::ng-deep .mat-menu-panel {
+::ng-deep .sizeMenu {
     width: 100vw!important;
     height: 50vh !important;
   }
+
+  ::ng-deep.sizeAccountMenu {
+    width: 5vw!important;
+    height: 5vh !important;
+}
