@@ -33,8 +33,9 @@
                         </div>
                     </div>
                 </div>
+                <div *ngIf="submitError"></div>
                 <div style="width: 90%;">
-                    <button type="submit" title="הוספה לסל" class="toCart">
+                    <button type="submit" (click)="addToCart()" title="הוספה לסל" class="toCart">
                         <span>Add to cart</span>
                     </button>
                 </div>

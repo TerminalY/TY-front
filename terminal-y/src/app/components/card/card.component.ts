@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ViewCardComponent } from 'src/app/dialogs/view-card/view-card.component';
 import { ICloth } from 'src/app/models';
+import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-card',
@@ -22,18 +23,10 @@ export class CardComponent implements OnInit {
   @Output() countCart = new EventEmitter<number>();
   @Output() countFavor = new EventEmitter<number>();
 
-  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog) { }
+  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog, private userService: AccountService) { }
 
   ngOnInit(): void {
     this.colors = Object.keys(this.cloth.properties);
-  }
-
-  addToCart() {
-    this.countItems = this.countItems + 1;
-    this.countCart.emit(this.countItems);
-    this._snackBar.open(this.messageCart, null ,{
-      duration: 2000,
-    });
   }
 
   addToFavorite() {

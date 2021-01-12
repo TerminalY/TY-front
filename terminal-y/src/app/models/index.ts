@@ -2,6 +2,7 @@
 type ClothProperties = { [color: string]: [string, number][]}
 
 export interface ICloth {
+    _id: string;
     name: string;
     type: string;
     price: Number;
@@ -21,8 +22,9 @@ export interface IClothFilter {
     gender?: string;
 }
 
-export interface IUser {
+export interface IUser  {
     userName: string;
-    email: string;
     password: string;
+    email: string;
+    type?: string;
 }

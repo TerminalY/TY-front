@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ICloth } from 'src/app/models';
+import { AccountService } from 'src/app/services/account/account.service';
 
 @Component({
   selector: 'app-view-card',
@@ -9,11 +10,11 @@ import { ICloth } from 'src/app/models';
 })
 export class ViewCardComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ICloth) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ICloth, private userService: AccountService) { }
   colors = [];
   colorsProperties: { [key: string]: any } = {};
   sizes = [];
-
+  submitError = false;
   currColor;
   currSize;
 
@@ -47,5 +48,12 @@ export class ViewCardComponent implements OnInit {
 
   sizeClicked($event, size) {
     this.currSize = size;
+  }
+
+  addToCart() {
+    const username = localStorage.getItem('name');
+    if(username) {
+      this.userService.addToCart(username, this.data.name, this.currSize, this.currColor);
+    }
   }
 }
