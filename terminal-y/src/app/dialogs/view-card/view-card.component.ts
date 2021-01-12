@@ -13,6 +13,8 @@ export class ViewCardComponent implements OnInit {
   colors = [];
   colorsProperties: { [key: string]: any } = {};
   sizes = [];
+  sortSize = [];
+  stateSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   currColor;
   currSize;
@@ -43,6 +45,27 @@ export class ViewCardComponent implements OnInit {
         this.sizes.push(tuple[0]);
       }
     });
+    this.sortSize = [];
+
+    this.sizes.map(size => {
+      let index;
+      index = this.stateSizes.indexOf(size);
+      this.sortSize.push(index);
+    });
+
+    this.sortSize.sort();
+
+    this.sizes = this.changeIndexToItem(this.sortSize);
+
+  }
+
+  changeIndexToItem(sizeIndex:string[]) {
+    let sortSizes = [];
+    sizeIndex.map(index => {
+      sortSizes.push(this.stateSizes[index]);
+    });
+
+    return sortSizes;
   }
 
   sizeClicked($event, size) {

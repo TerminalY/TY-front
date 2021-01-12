@@ -20,7 +20,7 @@
                     <h2>
                         Colors:
                     </h2>
-                        <svg *ngFor="let color of colors" height="37" width="30">
+                        <svg class='pointerModal' *ngFor="let color of colors" height="37" width="30">
                             <circle cx="15" cy="25" r="10" stroke="grey" [attr.stroke-width]="this.colorsProperties[color]" [attr.fill]=color (click)="colorClicked($event, color)"/>
                         </svg>
                 </div>
@@ -28,8 +28,8 @@
                     <h2>Size:</h2>
                     <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap='20px'>
                         <div *ngFor="let size of sizes" class='colorSizes' (click)="sizeClicked($event, size)">
-                            <p><b *ngIf="currSize==size"><u>{{ size }}</u></b></p>
-                            <p *ngIf="currSize!=size">{{ size }}</p>
+                            <p class='pointerModal'><b *ngIf="currSize==size"><u>{{ size }}</u></b></p>
+                            <p class='pointerModal' *ngIf="currSize!=size">{{ size }}</p>
                         </div>
                     </div>
                 </div>
