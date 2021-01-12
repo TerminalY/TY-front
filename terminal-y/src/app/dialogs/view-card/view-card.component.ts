@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ICloth } from 'src/app/models';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ICloth, IUserChoosen } from 'src/app/models';
 
 @Component({
   selector: 'app-view-card',
@@ -9,13 +9,15 @@ import { ICloth } from 'src/app/models';
 })
 export class ViewCardComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ICloth) { }
+  constructor(public dialogRef: MatDialogRef<ViewCardComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: ICloth) { }
   colors = [];
   colorsProperties: { [key: string]: any } = {};
   sizes = [];
   sortSize = [];
   stateSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-
+  errorMessage = false;
+  chosenItems: IUserChoosen ;
   currColor;
   currSize;
 
@@ -70,5 +72,14 @@ export class ViewCardComponent implements OnInit {
 
   sizeClicked($event, size) {
     this.currSize = size;
+  }
+
+  addToCart() {
+    this.chosenItems = {color: this.currColor, size: this.currSize}; 
+    if (this.currColor != undefined && this.currSize != undefined) {
+      this.dialogRef.close(this.chosenItems);
+    } else if (this.currColor != undefined || this.currSize != undefined) {
+      this.errorMessage = true;
+    }
   }
 }

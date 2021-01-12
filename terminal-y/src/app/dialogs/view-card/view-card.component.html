@@ -8,7 +8,7 @@
     </div>
     <div fxFlex=80 class='viewCard'>
         <div fxLayout="row" fxLayoutAlign="space-around center" class='viewHeightCard'>
-            <div fxFlex=60 fxLayout="column" fxLayoutAlign="start start" fxLayoutGap='35px' class='viewHeightCard'>
+            <div fxFlex=60 fxLayout="column" fxLayoutAlign="start start" fxLayoutGap='25px' class='viewHeightCard'>
                 <div>
                     <h2>{{this.data.name}}</h2>
                    
@@ -34,7 +34,9 @@
                     </div>
                 </div>
                 <div style="width: 90%;">
-                    <button type="submit" title="הוספה לסל" class="toCart">
+                    <label *ngIf='errorMessage' class='error'>You need to choose color and size</label>
+
+                    <button type="submit" title="הוספה לסל" class="toCart" (click)='addToCart()'>
                         <span>Add to cart</span>
                     </button>
                 </div>

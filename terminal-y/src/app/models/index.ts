@@ -26,3 +26,9 @@ export interface IUser {
     email: string;
     password: string;
 }
+
+export interface IUserChoosen {
+    id?: Number;
+    color: string;
+    size: string;
+}
