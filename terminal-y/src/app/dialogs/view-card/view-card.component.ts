@@ -77,7 +77,7 @@ export class ViewCardComponent implements OnInit {
   addToCart() {
     this.chosenItems = {color: this.currColor, size: this.currSize}; 
     if (this.currColor != undefined && this.currSize != undefined) {
-      this.dialogRef.close(this.chosenItems);
+      this.dialogRef.close(this.data);
     } else if (this.currColor != undefined || this.currSize != undefined) {
       this.errorMessage = true;
     }

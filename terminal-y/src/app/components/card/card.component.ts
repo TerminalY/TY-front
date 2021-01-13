@@ -54,7 +54,7 @@ export class CardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.chooseItems = result;
-      console.log(result.length);
+      console.log(result);
       if (result.length != 0) {
         this.addToCart();
       }      
