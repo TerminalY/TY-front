@@ -26,7 +26,6 @@
 
 .Text {
     font-size: large;
-    box-shadow: 0 1px rgba(0, 0, 0, 0.12);
     width: 95%;
 }
 
@@ -34,6 +33,11 @@
     font-size: large;
     box-shadow: 0 1px rgba(121, 121, 121, 0.12);
     width: 95%;
+}
+
+.titleFilter {
+    width: 100%;
+    box-shadow: 0 1px rgba(19, 18, 18, 0.12);
 }
 
 .clothesHeight {
@@ -62,3 +66,12 @@
 .radioDesign {
    padding-right: 5px;
 }
+
+.colorBtn {
+    cursor: pointer;
+}
+
+.strokeEffect:hover {
+    stroke-width: 3;
+}
+

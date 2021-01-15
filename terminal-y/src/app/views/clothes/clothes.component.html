@@ -4,7 +4,12 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
     <div fxFlex='20' class='filters'>
         <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap='10px'>
-            <div class='Text'>Filter By</div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="titleFilter">
+                <div class='Text'>Filter By</div>
+                <button mat-button class='btnClear' (click)='cleanAllFilter()'>Clean All</button>
+            </div>
+
+            
             <div class='filterKind'>
                 <mat-accordion class='accordionSize'>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -29,26 +34,11 @@
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div fxLayout="row wrap" fxLayoutAlign="start center">
-                        <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#6b676b" />
-                        </svg>
-                        <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#f587d8" />
-                        </svg>
-                        
-                        <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#5ca83e" />
-                        </svg>
-                        
-                        <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#2990ff" />
-                        </svg>
-                        <svg height="37" width="30" fxFlex=20>
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#ffffff" />
-                        </svg>
-                        <svg height="37" width="30" fxFlex="20">
-                            <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" fill="#292929" />
-                        </svg>
+                        <ng-container *ngFor='let color of colors'>
+                            <svg height="37" width="30" fxFlex=20 class='colorBtn'>
+                                <circle class='strokeEffect' cx="15" cy="25" r="10" stroke="grey" [attr.stroke-width]="color.strokeWidth" [attr.fill]="color.color" />
+                            </svg>
+                        </ng-container>
                     </div>
                     </mat-expansion-panel>
                 </mat-accordion>
@@ -66,13 +56,7 @@
                 [(ngModel)]="value">
             </mat-slider>
             </div>
-            <div fxLayout="row" fxLayoutAlign="space-around center" class='filterByProp'>
-                <div fxFlexOffset='3' fxFlex='40'>Gender:</div>
-                <mat-radio-group aria-label="Select an option" fxFlex='80'>
-                    <mat-radio-button class='radioDesign' value="M">Male</mat-radio-button>
-                    <mat-radio-button value="F">Female</mat-radio-button>
-                  </mat-radio-group>
-            </div>
+        
         </div>
     </div>
     <div class='clothes clothesHeight' fxFlex='80'>

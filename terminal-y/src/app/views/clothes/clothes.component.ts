@@ -12,9 +12,12 @@ export class ClothesComponent implements OnInit {
   panelOpenState = false;
   private countProduct: BehaviorSubject<number>;
   private countFavorite: BehaviorSubject<number>;
-  sizes = [{size:'XS', isClicked: false}, {size:'S', isClicked: false}, {size:'M', isClicked: false}, {size:'L', isClicked: false}, 
-  {size:'XL', isClicked: false}, {size:'XXL', isClicked: false} ];
+ 
 
+  sizes =  [{size:'XS', isClicked: false}, {size:'S', isClicked: false}, {size:'M', isClicked: false}, {size:'L', isClicked: false}, 
+  {size:'XL', isClicked: false}, {size:'XXL', isClicked: false} ];
+  colors = [{color:'#6b676b', isClicked: false, strokeWidth: 1}, {color:'#f587d8', isClicked: false, strokeWidth: 1}, {color:'#5ca83e', isClicked: false, strokeWidth: 1}, {color:'#2990ff', isClicked: false, strokeWidth: 1}, 
+  {color:'#ffffff', isClicked: false, strokeWidth: 1}, {color:'#292929', isClicked: false, strokeWidth:1}];
 
   // slider variables
   max = 1000;
@@ -38,6 +41,16 @@ export class ClothesComponent implements OnInit {
 
   ngOnInit(): void {
     this.clothes$ = this.clothService.findClothes({});
+  }
+
+  cleanAllFilter() {
+    this.clothes$ = this.clothService.findClothes({});
+    this.sizes =  [{size:'XS', isClicked: false}, {size:'S', isClicked: false}, {size:'M', isClicked: false}, {size:'L', isClicked: false}, 
+    {size:'XL', isClicked: false}, {size:'XXL', isClicked: false} ];
+    this.colors = [{color:'#6b676b', isClicked: false, strokeWidth: 1}, {color:'#f587d8', isClicked: false, strokeWidth: 1}, {color:'#5ca83e', isClicked: false, strokeWidth: 1}, {color:'#2990ff', isClicked: false, strokeWidth: 1}, 
+    {color:'#ffffff', isClicked: false, strokeWidth: 1}, {color:'#292929', isClicked: false, strokeWidth:1}];
+    this.selectedSizes = [];
+
   }
 
   addToCart() {
