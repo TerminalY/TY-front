@@ -4,55 +4,68 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
     <div fxFlex='20' class='filters'>
         <div fxLayout="column" fxLayoutAlign="start center" fxLayoutGap='10px'>
-            <div class='Text'>Filter By</div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="titleFilter">
+                <div class='Text'>Filter By</div>
+                <button mat-button class='btnClear' (click)='cleanAllFilter()'>Clean All</button>
+            </div>
+
+            
             <div class='filterKind'>
-                <mat-accordion>
+                <mat-accordion class='accordionSize'>
                     <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 Size
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <p>XS</p>
-                        <p>S</p>
-                        <p>M</p>
-                        <p>L</p>
-                        <p>XL</p>
-                        <p>XXL</p>
+                        <ng-conatiner *ngFor='let size of sizes'>
+                            <p class='colorSize' (click)='filterBySize(size)' *ngIf='!size.isClicked'>{{size.size}}</p>
+                            <p class='colorSize' (click)='deleteFilterBySize(size)' *ngIf='size.isClicked'><b><u>{{size.size}}</u></b></p>
+                        </ng-conatiner>
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-around center" class='filterByProp'>
+                <mat-accordion class='accordionSize'>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Color
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <ng-container *ngFor='let color of colors'>
+                            <svg height="37" width="30" fxFlex=20 class='colorBtn'>
+                                <circle class='strokeEffect' cx="15" cy="25" r="10" stroke="grey" [attr.stroke-width]="color.strokeWidth" [attr.fill]="color.color" />
+                            </svg>
+                        </ng-container>
+                    </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-around center" class='filterByProp'>
+                <div fxFlexOffset='3' fxFlex='17'>Price:</div>
+                <mat-slider
+                fxFlex='80'
+                class="example-margin"
+                [max]="max"
+                [min]="min"
+                [step]="step"
+                [thumbLabel]="thumbLabel"
+                [displayWith]="formatLabel"
+                [(ngModel)]="value">
+            </mat-slider>
+            </div>
+        
         </div>
     </div>
-    <div class='clothes' fxFlex='80'>
+    <div class='clothes clothesHeight' fxFlex='80'>
         <div class='items' fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutGap='10px'>
-            <div class='card' fxFlex='30'>
-                <app-card (countCart)='addToCart($event)' (countFavor)='addToFavor($event)'></app-card>
-            </div>
-            <div class='card' fxFlex='30'>
-                <app-card></app-card>
-            </div>
-            <div class='card' fxFlex='30'>
-                <app-card></app-card>
-            </div>
-            <div class='card' fxFlex='28'>
-                <app-card></app-card>
-            </div>
-            <div class='card' fxFlex='28'>
-                <app-card></app-card>
-            </div>
-            <div class='card' fxFlex='28'>
-                <app-card></app-card>
-            </div>
-            <div class='card' fxFlex='28'>
-                <app-card></app-card>
-            </div>
-            <div class='card' fxFlex='28'>
-                <app-card></app-card>
-            </div>
-            <div class='card' fxFlex='28'>
-                <app-card></app-card>
-            </div>
+            <ng-container *ngFor="let cloth of (this.clothes$ | async)">
+                <div class='card' fxFlex='30'>
+                    <app-card [cloth]="cloth" (countCart)='addToCart()' (countFavor)='addToFavor()'></app-card>
+                </div>
+            </ng-container>
         </div>
     </div>
 

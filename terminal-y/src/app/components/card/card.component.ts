@@ -1,5 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ViewCardComponent } from 'src/app/dialogs/view-card/view-card.component';
+import { ICloth, IUserChoosen } from 'src/app/models';
 
 @Component({
   selector: 'app-card',
@@ -7,17 +10,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  @Output() countCart = new EventEmitter<number>();
-  @Output() countFavor = new EventEmitter<number>();
-
   countItems = 0;
   countFavorite = 0;
   messageCart = 'This item added to cart';
   messageFavor = 'This item added to Favorite';
+  chooseItems: IUserChoosen; 
+  colors;
 
-  constructor(private _snackBar: MatSnackBar) { }
+  @Input() cloth: ICloth;
+
+  @Output() countCart = new EventEmitter<number>();
+  @Output() countFavor = new EventEmitter<number>();
+
+  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.colors = Object.keys(this.cloth.properties);
   }
 
   addToCart() {
@@ -33,6 +41,23 @@ export class CardComponent implements OnInit {
     this.countFavor.emit(this.countFavorite);
     this._snackBar.open(this.messageFavor, null ,{
       duration: 2000,
+    });
+  }
+
+  openViewCard() {
+    const dialogRef = this.dialog.open(ViewCardComponent, {
+      data: this.cloth,
+      height: "90%",
+      width: "70%",
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.chooseItems = result;
+      console.log(result);
+      if (result.length != 0) {
+        this.addToCart();
+      }      
     });
   }
 }

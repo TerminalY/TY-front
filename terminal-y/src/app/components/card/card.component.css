@@ -1,9 +1,18 @@
 .example-card {
     max-width: 400px;
     width: 85%;
+    min-height: 530px;
   }
   
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.image:hover {
+  border: 2px solid #555;
+}
+
+.image {
+  cursor: pointer;
+} 
