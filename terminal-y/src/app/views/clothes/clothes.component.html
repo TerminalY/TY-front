@@ -13,12 +13,10 @@
                                 Size
                             </mat-panel-title>
                         </mat-expansion-panel-header>
-                        <p class='colorSize'>XS</p>
-                        <p class='colorSize'>S</p>
-                        <p class='colorSize'>M</p>
-                        <p class='colorSize'>L</p>
-                        <p class='colorSize'>XL</p>
-                        <p class='colorSize'>XXL</p>
+                        <ng-conatiner *ngFor='let size of sizes'>
+                            <p class='colorSize' (click)='filterBySize(size)' *ngIf='!size.isClicked'>{{size.size}}</p>
+                            <p class='colorSize' (click)='deleteFilterBySize(size)' *ngIf='size.isClicked'><b><u>{{size.size}}</u></b></p>
+                        </ng-conatiner>
                     </mat-expansion-panel>
                 </mat-accordion>
             </div>

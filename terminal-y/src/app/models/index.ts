@@ -13,7 +13,7 @@ export interface ICloth {
 export interface IClothFilter {
     name?: string;
     type?: string;
-    size?: string;
+    size?: string[];
     lowPrice?: Number;
     highPrice?: Number;
     color?: string;

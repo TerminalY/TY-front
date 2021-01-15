@@ -51,6 +51,7 @@
 
 .colorSize{ 
     color: grey;
+    cursor: pointer;
 }
 
 ::ng-deep.mat-slider-thumb-label {
