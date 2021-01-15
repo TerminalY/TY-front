@@ -43,3 +43,11 @@
 .colorSizes {
     color: grey;
 }
+
+.pointerModal {
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+}

@@ -13,7 +13,7 @@ export interface ICloth {
 export interface IClothFilter {
     name?: string;
     type?: string;
-    size?: string;
+    size?: string[];
     lowPrice?: Number;
     highPrice?: Number;
     color?: string;
@@ -25,4 +25,10 @@ export interface IUser {
     userName: string;
     email: string;
     password: string;
+}
+
+export interface IUserChoosen {
+    id?: Number;
+    color: string;
+    size: string;
 }

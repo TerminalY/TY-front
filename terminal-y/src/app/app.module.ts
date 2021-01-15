@@ -13,6 +13,7 @@ import { RegisterComponent } from './views/register/register.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { ViewCardComponent } from './dialogs/view-card/view-card.component';
+import { CartItemsComponent } from './components/cart-items/cart-items.component';
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
     LoginComponent,
     RegisterComponent,
     MainPageComponent,
-    ViewCardComponent
+    ViewCardComponent,
+    CartItemsComponent
   ],
   exports: [RouterModule],
   imports: [

@@ -1,0 +1,8 @@
+.properties {
+    height: 100px;
+    box-shadow: 0 1px rgba(32,33,37,0.12);
+}
+
+.cursor {
+    cursor: pointer;
+}

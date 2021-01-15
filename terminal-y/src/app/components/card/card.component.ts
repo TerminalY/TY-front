@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ViewCardComponent } from 'src/app/dialogs/view-card/view-card.component';
-import { ICloth } from 'src/app/models';
+import { ICloth, IUserChoosen } from 'src/app/models';
 
 @Component({
   selector: 'app-card',
@@ -14,7 +14,7 @@ export class CardComponent implements OnInit {
   countFavorite = 0;
   messageCart = 'This item added to cart';
   messageFavor = 'This item added to Favorite';
-
+  chooseItems: IUserChoosen; 
   colors;
 
   @Input() cloth: ICloth;
@@ -45,11 +45,19 @@ export class CardComponent implements OnInit {
   }
 
   openViewCard() {
-    this.dialog.open(ViewCardComponent, {
+    const dialogRef = this.dialog.open(ViewCardComponent, {
       data: this.cloth,
       height: "90%",
       width: "70%",
       disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.chooseItems = result;
+      console.log(result);
+      if (result.length != 0) {
+        this.addToCart();
+      }      
     });
   }
 }
