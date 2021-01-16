@@ -16,8 +16,8 @@ export class ClothesComponent implements OnInit {
 
   sizes =  [{size:'XS', isClicked: false}, {size:'S', isClicked: false}, {size:'M', isClicked: false}, {size:'L', isClicked: false}, 
   {size:'XL', isClicked: false}, {size:'XXL', isClicked: false} ];
-  colors = [{color:'#6b676b', isClicked: false, strokeWidth: 1}, {color:'#f587d8', isClicked: false, strokeWidth: 1}, {color:'#5ca83e', isClicked: false, strokeWidth: 1}, {color:'#2990ff', isClicked: false, strokeWidth: 1}, 
-  {color:'#ffffff', isClicked: false, strokeWidth: 1}, {color:'#292929', isClicked: false, strokeWidth:1}];
+  colors = [{color:'#6b676b', isClicked: false}, {color:'#f587d8', isClicked: false}, {color:'#5ca83e', isClicked: false}, {color:'#2990ff', isClicked: false}, 
+  {color:'#ffffff', isClicked: false}, {color:'#292929', isClicked: false}];
 
   // slider variables
   max = 1000;
@@ -27,6 +27,7 @@ export class ClothesComponent implements OnInit {
   value = 0;
   filterParams: IClothFilter = {};
   selectedSizes = [];
+  selectedColors = [];
 
   clothes$: Observable<ICloth>;
 
@@ -47,10 +48,11 @@ export class ClothesComponent implements OnInit {
     this.clothes$ = this.clothService.findClothes({});
     this.sizes =  [{size:'XS', isClicked: false}, {size:'S', isClicked: false}, {size:'M', isClicked: false}, {size:'L', isClicked: false}, 
     {size:'XL', isClicked: false}, {size:'XXL', isClicked: false} ];
-    this.colors = [{color:'#6b676b', isClicked: false, strokeWidth: 1}, {color:'#f587d8', isClicked: false, strokeWidth: 1}, {color:'#5ca83e', isClicked: false, strokeWidth: 1}, {color:'#2990ff', isClicked: false, strokeWidth: 1}, 
-    {color:'#ffffff', isClicked: false, strokeWidth: 1}, {color:'#292929', isClicked: false, strokeWidth:1}];
+    this.colors = [{color:'#6b676b', isClicked: false}, {color:'#f587d8', isClicked: false}, {color:'#5ca83e', isClicked: false}, {color:'#2990ff', isClicked: false}, 
+    {color:'#ffffff', isClicked: false}, {color:'#292929', isClicked: false}];
     this.selectedSizes = [];
-
+    this.selectedColors = [];
+    this.value = 0;
   }
 
   addToCart() {
@@ -65,6 +67,20 @@ export class ClothesComponent implements OnInit {
 
   formatLabel(value: number) {
     return value + '₪';
+  }
+
+  filterByColor(colorFilter: {color: string, isClicked: boolean}) {
+    this.selectedColors.push(colorFilter.color);
+    this.getClothesByColor(colorFilter);
+  }
+
+  deleteFilterByColor(colorFilter: {color: string, isClicked: boolean}) {
+    const index = this.selectedColors.indexOf(colorFilter.color);
+    if (index > -1) {
+      this.selectedColors.splice(index, 1);
+    }
+
+    this.getClothesByColor(colorFilter);
   }
 
   filterBySize(sizeFilter: {size: string, isClicked: boolean}) {
@@ -83,7 +99,8 @@ export class ClothesComponent implements OnInit {
   }
 
   private getClothesBySize(sizeFilter: {size: string, isClicked: boolean}) {
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes});
+    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value}) :
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors})
     this.sizes.map(item => {
       if (item.size == sizeFilter.size) {
         return item.isClicked = !sizeFilter.isClicked 
@@ -91,6 +108,22 @@ export class ClothesComponent implements OnInit {
          return  item.isClicked;  
       } 
     });
+  }
+
+  private getClothesByColor(colorFilter: {color: string, isClicked: boolean}) {
+    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value}) :
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors})
+    this.colors.map(item => {
+      if (item.color == colorFilter.color) {
+        return item.isClicked = !colorFilter.isClicked 
+      } else {
+         return  item.isClicked;  
+      } 
+    });
+  }
+
+  valueChanged($event) {
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: $event.value });
   }
 
 }

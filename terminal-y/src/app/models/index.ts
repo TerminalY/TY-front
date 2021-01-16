@@ -14,9 +14,9 @@ export interface IClothFilter {
     name?: string;
     type?: string;
     size?: string[];
-    lowPrice?: Number;
-    highPrice?: Number;
-    color?: string;
+    minPrice?: Number;
+    maxPrice?: Number;
+    color?: string[];
     amount?: Number;
     gender?: string;
 }

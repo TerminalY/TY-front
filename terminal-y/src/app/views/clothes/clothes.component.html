@@ -36,7 +36,8 @@
                         <div fxLayout="row wrap" fxLayoutAlign="start center">
                         <ng-container *ngFor='let color of colors'>
                             <svg height="37" width="30" fxFlex=20 class='colorBtn'>
-                                <circle class='strokeEffect' cx="15" cy="25" r="10" stroke="grey" [attr.stroke-width]="color.strokeWidth" [attr.fill]="color.color" />
+                                <circle *ngIf='!color.isClicked' (click)='filterByColor(color)' class='strokeEffect' cx="15" cy="25" r="10" stroke="grey" stroke-width="1" [attr.fill]="color.color" />
+                                <circle *ngIf='color.isClicked' (click)='deleteFilterByColor(color)' class='strokeEffect' cx="15" cy="25" r="10" stroke="grey" stroke-width="3" [attr.fill]="color.color" />
                             </svg>
                         </ng-container>
                     </div>
@@ -53,7 +54,8 @@
                 [step]="step"
                 [thumbLabel]="thumbLabel"
                 [displayWith]="formatLabel"
-                [(ngModel)]="value">
+                [(ngModel)]="value"
+                (change)='valueChanged($event)'>
             </mat-slider>
             </div>
         
