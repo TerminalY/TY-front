@@ -10,6 +10,7 @@ export class MainPageComponent implements OnInit {
   countCart = 0;
   countFavor = 0;
   accountName = undefined;
+  searchValue = '';
 
   constructor() {}
 
@@ -28,6 +29,10 @@ export class MainPageComponent implements OnInit {
   logout() {
     localStorage.removeItem('name');
     location.reload();
+  }
+
+  onSearchChange(searchValue: string): void {  
+    this.searchValue = searchValue;
   }
 
 }

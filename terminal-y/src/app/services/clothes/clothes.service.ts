@@ -19,9 +19,9 @@ export class ClothesService {
     
     Object.keys(cloth).forEach(key => {
       if(cloth[key] != undefined) {
-        if (cloth.size.length > 1) {
+        if ((key === 'size' || key === 'color') && cloth[key].length > 1) {
           // params = params.set(key, cloth[key]);
-          cloth.size.forEach(item => {
+          cloth[key].forEach(item => {
             params = params.append(key,item);
           })
         } else {
