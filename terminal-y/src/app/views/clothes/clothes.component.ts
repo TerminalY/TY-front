@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { BehaviorSubject, Observable, pipe} from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ICloth, IClothFilter } from 'src/app/models';
 import { ClothesService } from 'src/app/services/clothes/clothes.service';
 
@@ -8,7 +9,7 @@ import { ClothesService } from 'src/app/services/clothes/clothes.service';
   templateUrl: './clothes.component.html',
   styleUrls: ['./clothes.component.css']
 })
-export class ClothesComponent implements OnInit {
+export class ClothesComponent implements OnInit, OnChanges {
   panelOpenState = false;
   private countProduct: BehaviorSubject<number>;
   private countFavorite: BehaviorSubject<number>;
@@ -28,12 +29,13 @@ export class ClothesComponent implements OnInit {
   filterParams: IClothFilter = {};
   selectedSizes = [];
   selectedColors = [];
+  searchValue = '';
 
   clothes$: Observable<ICloth>;
 
   @Output() countItems = new EventEmitter<number>();
   @Output() countFavor = new EventEmitter<number>();
-
+  @Input() prop: string;
 
   constructor(public clothService: ClothesService) { 
     this.countProduct = new BehaviorSubject(0);
@@ -44,8 +46,15 @@ export class ClothesComponent implements OnInit {
     this.clothes$ = this.clothService.findClothes({});
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+    this.searchValue = changes.prop.currentValue;   
+    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value,  name: this.searchValue}) :
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue}) 
+  }
+  
   cleanAllFilter() {
-    this.clothes$ = this.clothService.findClothes({});
+    this.clothes$ = this.clothService.findClothes({name: this.searchValue});
     this.sizes =  [{size:'XS', isClicked: false}, {size:'S', isClicked: false}, {size:'M', isClicked: false}, {size:'L', isClicked: false}, 
     {size:'XL', isClicked: false}, {size:'XXL', isClicked: false} ];
     this.colors = [{color:'#6b676b', isClicked: false}, {color:'#f587d8', isClicked: false}, {color:'#5ca83e', isClicked: false}, {color:'#2990ff', isClicked: false}, 
@@ -99,8 +108,8 @@ export class ClothesComponent implements OnInit {
   }
 
   private getClothesBySize(sizeFilter: {size: string, isClicked: boolean}) {
-    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value}) :
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors})
+    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value,  name: this.searchValue}) :
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors,name: this.searchValue})
     this.sizes.map(item => {
       if (item.size == sizeFilter.size) {
         return item.isClicked = !sizeFilter.isClicked 
@@ -112,7 +121,7 @@ export class ClothesComponent implements OnInit {
 
   private getClothesByColor(colorFilter: {color: string, isClicked: boolean}) {
     this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value}) :
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors})
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue})
     this.colors.map(item => {
       if (item.color == colorFilter.color) {
         return item.isClicked = !colorFilter.isClicked 
@@ -123,7 +132,7 @@ export class ClothesComponent implements OnInit {
   }
 
   valueChanged($event) {
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: $event.value });
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: $event.value, name: this.searchValue });
   }
 
 }

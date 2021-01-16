@@ -17,7 +17,7 @@
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap='15px'>
             <div >
               <form>
-                <input type="search" placeholder="Search">
+                <input type="search" placeholder="Search" (input)="onSearchChange($event.target.value)">
               </form>
             </div>
               <div class='Login' *ngIf='!accountName' routerLink="/login">
@@ -103,5 +103,5 @@
       </div>
     </nav>
   </header>
-  <app-clothes (countItems)='changeCountCart($event)' (countFavor)='changeCountFavor($event)'></app-clothes>
+  <app-clothes [prop]='searchValue' (countItems)='changeCountCart($event)' (countFavor)='changeCountFavor($event)'></app-clothes>
   
