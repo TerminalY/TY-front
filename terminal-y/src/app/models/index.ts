@@ -19,6 +19,7 @@ export interface IClothFilter {
     color?: string[];
     amount?: Number;
     gender?: string;
+    subtype?: string;
 }
 
 export interface IUser {

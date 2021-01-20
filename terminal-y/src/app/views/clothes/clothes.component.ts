@@ -30,12 +30,16 @@ export class ClothesComponent implements OnInit, OnChanges {
   selectedSizes = [];
   selectedColors = [];
   searchValue = '';
+  subtype = '';
+  gender = '';
+  title: string;
 
   clothes$: Observable<ICloth>;
 
   @Output() countItems = new EventEmitter<number>();
   @Output() countFavor = new EventEmitter<number>();
   @Input() prop: string;
+  @Input() filterByType: {subtype: string, gender: string};
 
   constructor(public clothService: ClothesService) { 
     this.countProduct = new BehaviorSubject(0);
@@ -48,13 +52,27 @@ export class ClothesComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     // changes.prop contains the old and the new value...
-    this.searchValue = changes.prop.currentValue;   
-    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value,  name: this.searchValue}) :
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue}) 
+    console.log(changes);
+    switch(Object.keys(changes)[0]) {
+      case "prop": {
+        this.searchValue = changes.prop.currentValue;   
+        this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value,  name: this.searchValue, subtype: this.subtype, gender: this.gender}) :
+        this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue, subtype: this.subtype, gender: this.gender}) 
+        break;
+      }
+      case "filterByType": {
+        this.subtype = changes.filterByType.currentValue.subtype;
+        this.gender = changes.filterByType.currentValue.gender;
+        this.clothes$ = this.clothService.findClothes({subtype: this.subtype, gender: this.gender}) 
+        break;
+      }
+
+    }
+    
   }
   
   cleanAllFilter() {
-    this.clothes$ = this.clothService.findClothes({name: this.searchValue});
+    this.clothes$ = this.clothService.findClothes({name: this.searchValue, subtype: this.subtype, gender: this.gender});
     this.sizes =  [{size:'XS', isClicked: false}, {size:'S', isClicked: false}, {size:'M', isClicked: false}, {size:'L', isClicked: false}, 
     {size:'XL', isClicked: false}, {size:'XXL', isClicked: false} ];
     this.colors = [{color:'#6b676b', isClicked: false}, {color:'#f587d8', isClicked: false}, {color:'#5ca83e', isClicked: false}, {color:'#2990ff', isClicked: false}, 
@@ -109,7 +127,7 @@ export class ClothesComponent implements OnInit, OnChanges {
 
   private getClothesBySize(sizeFilter: {size: string, isClicked: boolean}) {
     this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value,  name: this.searchValue}) :
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors,name: this.searchValue})
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors,name: this.searchValue, subtype: this.subtype, gender: this.gender})
     this.sizes.map(item => {
       if (item.size == sizeFilter.size) {
         return item.isClicked = !sizeFilter.isClicked 
@@ -120,8 +138,8 @@ export class ClothesComponent implements OnInit, OnChanges {
   }
 
   private getClothesByColor(colorFilter: {color: string, isClicked: boolean}) {
-    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value}) :
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue})
+    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value, subtype: this.subtype, gender: this.gender}) :
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue, subtype: this.subtype, gender: this.gender})
     this.colors.map(item => {
       if (item.color == colorFilter.color) {
         return item.isClicked = !colorFilter.isClicked 
@@ -132,7 +150,7 @@ export class ClothesComponent implements OnInit, OnChanges {
   }
 
   valueChanged($event) {
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: $event.value, name: this.searchValue });
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: $event.value, name: this.searchValue, subtype: this.subtype, gender: this.gender });
   }
 
 }
