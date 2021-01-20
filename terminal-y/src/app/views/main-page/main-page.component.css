@@ -153,6 +153,11 @@ input::-webkit-input-placeholder {
     height: 30vh !important;
   }
 
+  ::ng-deep .cartMenu {
+    width: 100vw!important;
+    height: 50vh !important;
+  }
+
   ::ng-deep.sizeAccountMenu {
     width: 5vw!important;
     height: 5vh !important;
@@ -164,7 +169,7 @@ input::-webkit-input-placeholder {
 }
 
 ::ng-deep.mat-menu-content {
-    height: 70% !important;
+    height: 100% !important;
 } 
 
 .payment {

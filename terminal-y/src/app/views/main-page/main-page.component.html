@@ -35,7 +35,7 @@
               </div>
               <div>
                 <mat-icon class='icon' [matMenuTriggerFor]="menu" matBadge="{{countCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
-                <mat-menu #menu="matMenu" class='sizeMenu'>
+                <mat-menu #menu="matMenu" class='cartMenu'>
                   <div class='sizeDiv' fxLayout="column" fxLayoutAlign="space-around stretch" (click)="$event.stopPropagation();" >
                     <div fxFlex='80' style="overflow-y: scroll;">
                       <!-- Items in the cart-->

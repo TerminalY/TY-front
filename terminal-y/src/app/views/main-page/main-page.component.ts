@@ -15,7 +15,7 @@ export class MainPageComponent implements OnInit {
   countFavor = 0;
   accountName = undefined;
   searchValue = '';
-  filterByType:{subtype: string, gender: string};
+  filterByType:{subtype: string, gender: string} = {subtype: '', gender: ''};
   
   filterSubtypeMen = [{name: 'Shirts', subtype: [{name: 'sleevless', isClicked: false}, {name: 'tshirts', isClicked: false}] },
                         {name: 'Jackets-coats', subtype: [{name:'coats', isClicked: false}, {name:'jackets', isClicked: false}] }];

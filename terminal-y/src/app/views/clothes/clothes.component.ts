@@ -52,23 +52,23 @@ export class ClothesComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     // changes.prop contains the old and the new value...
-    console.log(changes);
-    switch(Object.keys(changes)[0]) {
-      case "prop": {
-        this.searchValue = changes.prop.currentValue;   
-        this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value,  name: this.searchValue, subtype: this.subtype, gender: this.gender}) :
-        this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue, subtype: this.subtype, gender: this.gender}) 
-        break;
+    Object.keys(changes).forEach(element => {
+      switch(element) {
+        case "prop": {
+          this.searchValue = changes.prop.currentValue;   
+          this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value,  name: this.searchValue, subtype: this.subtype, gender: this.gender}) :
+          this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue, subtype: this.subtype, gender: this.gender}) 
+          break;
+        }
+        case "filterByType": {
+          this.subtype = changes.filterByType.currentValue.subtype;
+          this.gender = changes.filterByType.currentValue.gender;
+          this.clothes$ = this.clothService.findClothes({subtype: this.subtype, gender: this.gender}) 
+          break;
+        }
+  
       }
-      case "filterByType": {
-        this.subtype = changes.filterByType.currentValue.subtype;
-        this.gender = changes.filterByType.currentValue.gender;
-        this.clothes$ = this.clothService.findClothes({subtype: this.subtype, gender: this.gender}) 
-        break;
-      }
-
-    }
-    
+    });    
   }
   
   cleanAllFilter() {
