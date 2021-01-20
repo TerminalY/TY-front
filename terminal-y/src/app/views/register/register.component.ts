@@ -27,14 +27,14 @@ export class RegisterComponent implements OnInit {
   createForm() {
     let emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.formGroup = this.formBuilder.group({
-      'name': [null, Validators.required],
+      'username': [null, Validators.required],
       'email': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
       'password': [null, [Validators.required, this.checkPassword]],
     });
   }
 
-  get name() {
-    return this.formGroup.get('name') as FormControl
+  get username() {
+    return this.formGroup.get('username') as FormControl
   }
 
   checkPassword(control) {
@@ -67,9 +67,14 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(post) {
-    this.accountService.registration(post).subscribe();
-    localStorage.setItem('name', post.name);
-    this.router.navigate(['']);
+    this.accountService.registration(post).subscribe(res => {
+        if(res) {
+          localStorage.setItem('name', post.username);
+          this.router.navigate(['']);
+        } else {
+          console.error(res);
+        }
+    });
 
   }
 
