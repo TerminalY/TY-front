@@ -63,7 +63,8 @@ export class ClothesComponent implements OnInit, OnChanges {
         case "filterByType": {
           this.subtype = changes.filterByType.currentValue.subtype;
           this.gender = changes.filterByType.currentValue.gender;
-          this.clothes$ = this.clothService.findClothes({subtype: this.subtype, gender: this.gender}) 
+          // this.clothes$ = this.clothService.findClothes({subtype: this.subtype, gender: this.gender}) 
+          this.cleanAllFilter()
           break;
         }
   
