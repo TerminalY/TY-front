@@ -62,9 +62,9 @@
         </div>
     </div>
     <div class='clothes clothesHeight' fxFlex='80'>
-        <div class='items' fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap='20px'>
+        <div class='items' fxLayout="row wrap" fxLayoutAlign="start center">
             <ng-container *ngFor="let cloth of (this.clothes$ | async)">
-                <div class='card' fxFlex='30'>
+                <div class='card' fxFlex='30' fxFlexOffset='20px'>
                     <app-card [cloth]="cloth" (countCart)='addToCart()' (countFavor)='addToFavor()'></app-card>
                 </div>
             </ng-container>
