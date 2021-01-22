@@ -14,6 +14,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { ViewCardComponent } from './dialogs/view-card/view-card.component';
 import { CartItemsComponent } from './components/cart-items/cart-items.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
@@ -46,7 +50,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes
       // { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
+    SocketIoModule.forRoot(config)
+
   ],
   entryComponents: [ViewCardComponent],
   providers: [],

@@ -1,8 +1,6 @@
-import { registerLocaleData } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ICloth } from 'src/app/models';
 import { ClothesService } from 'src/app/services/clothes/clothes.service';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-main-page',
@@ -11,6 +9,7 @@ import { ClothesService } from 'src/app/services/clothes/clothes.service';
 })
 export class MainPageComponent implements OnInit {
   title = 'terminal-y';
+  numberOfOnlineUsers;
   countCart = 0;
   countFavor = 0;
   accountName = undefined;
@@ -28,9 +27,12 @@ export class MainPageComponent implements OnInit {
   filterSubtypeWomenSecond = [{name: 'Pants-skirts', subtype: [{name: 'jeans', isClicked: false}, {name: 'shorts', isClicked: false}] },
                             {name: 'Shoes', subtype: [{name:'sneakers', isClicked: false}, {name: 'heels', isClicked: false}] }];
 
-  constructor(public clothService: ClothesService) {}
+  constructor(public clothService: ClothesService, private socket: Socket) {}
 
   ngOnInit(): void {
+    this.socket.on('numberOfOnlineUsers', (numberOfOnlineUsers) => {
+      this.numberOfOnlineUsers = numberOfOnlineUsers;
+    });
     this.accountName = localStorage.getItem('name');
   }
 

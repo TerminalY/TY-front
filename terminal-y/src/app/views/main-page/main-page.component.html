@@ -21,7 +21,7 @@
               </form>
             </div>
               <div class='Login' *ngIf='!accountName' routerLink="/login">
-                Login
+                Login 
               </div>
               <div class='Register' *ngIf='!accountName' routerLink="/register">
                 Register
@@ -65,10 +65,11 @@
   
     <!--Lower nav-->
     <nav class='WhiteHeader_lowerBar'>
-      <div>
-        <button class='menBtn' mat-button [matMenuTriggerFor]="menMenu">Men</button>
-        <button class='womenBtn' mat-button [matMenuTriggerFor]="womenMenu">Women</button>
-        <mat-menu #menMenu="matMenu" xPosition="after" class='sizeMenu'>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex='20' > 
+          <button class='menBtn' mat-button [matMenuTriggerFor]="menMenu">Men</button>
+          <button class='womenBtn' mat-button [matMenuTriggerFor]="womenMenu">Women</button>
+          <mat-menu #menMenu="matMenu" xPosition="after" class='sizeMenu'>
            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
             <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">    
               <div class='menuDesign' fxFlex='47.5'>
@@ -94,8 +95,8 @@
           </div>
         </div>
        
-        </mat-menu>
-        <mat-menu #womenMenu="matMenu" xPosition="after" class='sizeMenu'>
+          </mat-menu>
+          <mat-menu #womenMenu="matMenu" xPosition="after" class='sizeMenu'>
           <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
            <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">    
              <div class='menuDesign' fxFlex='47.5'>
@@ -121,7 +122,11 @@
          </div>
        </div>
       
-       </mat-menu>
+         </mat-menu>
+        </div>
+        <div fxFlex fxFlexOffset='67' style="font-size: 20px;">
+          Online Users: {{numberOfOnlineUsers}}
+        </div>
       </div>
     </nav>
   </header>
