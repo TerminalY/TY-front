@@ -150,6 +150,11 @@ input::-webkit-input-placeholder {
 
 ::ng-deep .sizeMenu {
     width: 100vw!important;
+    height: 30vh !important;
+  }
+
+  ::ng-deep .cartMenu {
+    width: 100vw!important;
     height: 50vh !important;
   }
 
@@ -199,4 +204,17 @@ input::-webkit-input-placeholder {
     cursor: pointer;
     width: 60%;
     border-radius: 12px;
+  }
+
+  .menuDesign {
+      width: 100%;
+  }
+
+  .type {
+      cursor: pointer;
+  }
+
+  .type:hover {
+    font-weight: bold;
+    color: grey;
   }

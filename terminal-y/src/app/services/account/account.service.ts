@@ -11,7 +11,7 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
   registration(user: IUser): Observable<any> {
-    const route = `${environment.backendAddress}/users/create`
+    const route = `${environment.backendAddress}/users`
     return this.http.post<IUser>(route, user);
   }
 }

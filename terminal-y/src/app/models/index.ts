@@ -19,10 +19,11 @@ export interface IClothFilter {
     color?: string[];
     amount?: Number;
     gender?: string;
+    subtype?: string;
 }
 
 export interface IUser {
-    userName: string;
+    username: string;
     email: string;
     password: string;
 }
