@@ -46,6 +46,8 @@ export class MainPageComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('name');
+    localStorage.removeItem('email');
+
     location.reload();
   }
 

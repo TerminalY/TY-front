@@ -24,7 +24,7 @@ export interface IClothFilter {
 
 export interface IUser {
     username: string;
-    email: string;
+    email?: string;
     password: string;
 }
 

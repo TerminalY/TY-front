@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AccountService } from 'src/app/services/account/account.service';
+import { Router } from '@angular/router';
 
 export interface userLogin {
   email: string;
@@ -19,11 +21,12 @@ export class LoginComponent implements OnInit {
   hide = true;
   invalidErrorMsg = '';
   isError = true;
+  invalidErrorLogin = false;
   @Output() isLogin = new EventEmitter();
   @Output() signUp = new EventEmitter();
 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor( private router: Router, private formBuilder: FormBuilder, private accountService:AccountService ) { }
 
   ngOnInit() {
     localStorage.removeItem('username');
@@ -69,6 +72,17 @@ export class LoginComponent implements OnInit {
 
   async onSubmit(post) {
     this.post = post;
+    this.accountService.login(post).subscribe(res => {
+      if(res) {
+        this.invalidErrorLogin = false;
+        localStorage.setItem('name', res.name);
+        localStorage.setItem('email', post.email);
+        this.router.navigate(['']);
+      } else {
+        this.invalidErrorLogin = true; 
+        console.error(res);
+      }
+  });;
   }
 
   signUpRequest() {

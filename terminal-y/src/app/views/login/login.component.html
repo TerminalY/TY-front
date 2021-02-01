@@ -45,7 +45,8 @@
                 <button mat-raised-button color="primary" type="submit" class="button"
                   [disabled]="!formGroup.valid">Login</button>
               </div>
-              <div  [ngClass]="!isError ? 'fontTrue' : 'fontFalse'"> {{ invalidErrorMsg }} </div>
+              <label *ngIf='invalidErrorLogin' style="color:red">The user or password incorrect</label>
+
             </div>
 
           </form>

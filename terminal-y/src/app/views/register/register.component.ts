@@ -70,6 +70,7 @@ export class RegisterComponent implements OnInit {
     this.accountService.registration(post).subscribe(res => {
         if(res) {
           localStorage.setItem('name', post.username);
+          localStorage.setItem('email', post.email);
           this.router.navigate(['']);
         } else {
           console.error(res);
