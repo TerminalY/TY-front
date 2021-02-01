@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class MainPageComponent implements OnInit {
   title = 'terminal-y';
-  numberOfOnlineUsers;
+  numberOfOnlineUsers = 1;
   countCart = 0;
   countFavor = 0;
   accountName = undefined;
@@ -37,7 +37,11 @@ export class MainPageComponent implements OnInit {
     });
     this.accountName = localStorage.getItem('name');
     this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
-    this.changeCountCart(this.cartData.clothes.length)
+    if (this.cartData) {
+     await this.changeCountCart(this.cartData.clothes.length)
+    } else {
+      await this.changeCountCart(0)
+    }
   }
 
   changeCountCart(count) {
