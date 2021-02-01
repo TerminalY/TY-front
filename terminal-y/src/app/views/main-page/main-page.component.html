@@ -34,15 +34,12 @@
                 </mat-menu>
               </div>
               <div>
-                <mat-icon class='icon' [matMenuTriggerFor]="menu" matBadge="{{countCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
+                <mat-icon class='icon' [matMenuTriggerFor]="menu" matBadge="{{countCart}}" (click)='getCart()' matBadgeColor="warn">shopping_cart</mat-icon>
                 <mat-menu #menu="matMenu" class='cartMenu'>
                   <div class='sizeDiv' fxLayout="column" fxLayoutAlign="space-around stretch" (click)="$event.stopPropagation();" >
                     <div fxFlex='80' style="overflow-y: scroll;">
                       <!-- Items in the cart-->
-                      <app-cart-items></app-cart-items>
-                      <app-cart-items></app-cart-items>
-                      <app-cart-items></app-cart-items>
-                      <app-cart-items></app-cart-items>
+                      <app-cart-items [cartData]='cartData'></app-cart-items>
 
                     </div>
                     <div fxFlex='15'  fxLayout="row" fxLayoutAlign="space-around center" class='payment'>

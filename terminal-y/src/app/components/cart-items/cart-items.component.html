@@ -1,24 +1,23 @@
-<div fxLayout="row" fxLayoutAlign="space-around center" >
-    <div fxFlexOffset="3" fxFlex='37'>
-        <img width="100" height="100" src='https://media.terminalx.com/pub/media/catalog/product/cache/92af6b9c945798a7e3b64d91033084b3/x/7/x784920008-11609164760.jpg'>
-    </div>
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" class='properties'>
-        <div fxFlex='100'>
-            <div>בלייזר בהדפס משבצות של TERMINAL X</div>
-            <div><b>Color:</b> White</div>
-            <div><b>Size:</b> XS</div>
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-                <b>219.9₪</b>
-                <div fxFlexOffset='40' fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-                    <div>
-                        <b class='cursor' *ngIf='count > 1' (click)='calcCount("-")'>-</b>
-                        <ng-container>{{count}}</ng-container>
-                        <b class='cursor' (click)='calcCount("+")' *ngIf='count < 10'>+</b>
-                    </div>
+    <ng-container *ngIf='cart'>
+        <ng-container *ngFor='let item of cart.clothes'>
+            <div fxLayout="row" fxLayoutAlign="space-around center">
 
-                    <mat-icon class='cursor'>delete</mat-icon>
+            <div fxFlexOffset="3" fxFlex='37'>
+                <img width="100" height="100" src='{{item.img}}'>
+            </div>
+            <div fxFlex fxLayout="row" fxLayoutAlign="space-between center" class='properties'>
+                <div fxFlex='100'>
+                    <!-- <div>בלייזר בהדפס משבצות של TERMINAL X</div> -->
+                    <div>{{item.name}}</div>
+                    <div><b>Size:</b> {{item.size}}</div>
+                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <b>{{item.price}}</b>
+                        <div fxFlexOffset='40' fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                            <mat-icon class='cursor'>delete</mat-icon>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        </ng-container>
+    </ng-container>

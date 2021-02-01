@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClothesService } from 'src/app/services/clothes/clothes.service';
 import { Socket } from 'ngx-socket-io';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -14,6 +15,7 @@ export class MainPageComponent implements OnInit {
   countFavor = 0;
   accountName = undefined;
   searchValue = '';
+  cartData: any;
   filterByType:{subtype: string, gender: string} = {subtype: '', gender: ''};
   
   filterSubtypeMen = [{name: 'Shirts', subtype: [{name: 'sleevless', isClicked: false}, {name: 'tshirts', isClicked: false}] },
@@ -29,11 +31,13 @@ export class MainPageComponent implements OnInit {
 
   constructor(public clothService: ClothesService, private socket: Socket) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.socket.on('numberOfOnlineUsers', (numberOfOnlineUsers) => {
       this.numberOfOnlineUsers = numberOfOnlineUsers;
     });
     this.accountName = localStorage.getItem('name');
+    this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
+    this.changeCountCart(this.cartData.clothes.length)
   }
 
   changeCountCart(count) {
@@ -75,5 +79,10 @@ export class MainPageComponent implements OnInit {
 
   private resetData(itemArray: any) {
     itemArray.map(item=> item.subtype.map(subtype => subtype.isClicked = false));
+  }
+
+  async getCart() {
+    this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
+    this.changeCountCart(this.cartData.clothes.length)
   }
 }

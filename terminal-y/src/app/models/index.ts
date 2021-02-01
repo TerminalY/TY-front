@@ -30,6 +30,7 @@ export interface IUser {
 
 export interface IUserChoosen {
     id?: Number;
-    color: string;
-    size: string;
+    clothColor: string;
+    clothSize: string;
+    clothName: string
 }

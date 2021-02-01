@@ -35,8 +35,9 @@
                 </div>
                 <div style="width: 90%;">
                     <label *ngIf='errorMessage' class='error'>You need to choose color and size</label>
+                    <label *ngIf='errorLogin' class='error'>You need to login</label>
 
-                    <button type="submit" title="הוספה לסל" class="toCart" (click)='addToCart()'>
+                    <button type="submit" title="הוספה לסל" class="toCart" (click)='addToCart(this.data.name)'>
                         <span>Add to cart</span>
                     </button>
                 </div>
