@@ -37,8 +37,8 @@ export class MainPageComponent implements OnInit {
     });
     this.accountName = localStorage.getItem('name');
     this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
-    if (this.cartData) {
-     await this.changeCountCart(this.cartData.clothes.length)
+    if (this.cartData.cart) {
+     await this.changeCountCart(this.cartData.cart.clothes.length)
     } else {
       await this.changeCountCart(0)
     }
