@@ -39,14 +39,16 @@
                   <div class='sizeDiv' fxLayout="column" fxLayoutAlign="space-around stretch" (click)="$event.stopPropagation();" >
                     <div fxFlex='80' style="overflow-y: scroll;">
                       <!-- Items in the cart-->
-                      <app-cart-items [cartData]='cartData'></app-cart-items>
-
+                      <div *ngIf="cartData">
+                        <app-cart-items [cartData]='cartData.cart'></app-cart-items>
+                    </div>
                     </div>
                     <div fxFlex='15'  fxLayout="row" fxLayoutAlign="space-around center" class='payment'>
                       <button routerLink="/payment" class="button button5">Payment</button>
                       <div fxLayout="column" fxLayoutAlign="space-around center">
                         <div><b>Total Price:</b></div>
-                        <div>1,426₪</div>
+                        <div *ngIf="cartData">{{ cartData.sum }}₪</div>
+                        <div *ngIf="!cartData">0₪</div>
                       </div>
                     </div>
                   </div>

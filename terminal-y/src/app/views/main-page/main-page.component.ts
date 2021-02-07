@@ -35,12 +35,14 @@ export class MainPageComponent implements OnInit {
     this.socket.on('numberOfOnlineUsers', (numberOfOnlineUsers) => {
       this.numberOfOnlineUsers = numberOfOnlineUsers;
     });
+
     this.accountName = localStorage.getItem('name');
-    this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
-    if (this.cartData.cart) {
-     await this.changeCountCart(this.cartData.cart.clothes.length)
+    this.cartData    = await this.clothService.getCartByEmail(localStorage.getItem('email'));
+
+    if (this.cartData) {
+      this.changeCountCart(this.cartData.cart.clothes.length)
     } else {
-      await this.changeCountCart(0)
+      this.changeCountCart(0)
     }
   }
 
@@ -87,6 +89,6 @@ export class MainPageComponent implements OnInit {
 
   async getCart() {
     this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
-    this.changeCountCart(this.cartData.clothes.length)
+    this.changeCountCart(this.cartData.cart.clothes.length)
   }
 }
