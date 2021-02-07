@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IClothFilter } from '../../models/index';
+import { IClothFilter, IUserChoosen } from '../../models/index';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,16 @@ export class ClothesService {
     return this.http.get(route, {
       params
     });
+  }
+
+  getCartByEmail(email: string): Promise<any> {
+    const route = `${environment.backendAddress}/users/${email}/getCart`;
+    return this.http.get(route).toPromise();
+  }
+
+  addToCart(email: string, userChosen: IUserChoosen): Observable<any> {
+    const route = `${environment.backendAddress}/users/${email}/addToCart`;
+    return this.http.post<any>(route, userChosen);
   }
 }
 

@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTreeFlatDataSource } from '@angular/material/tree';
 import { ICloth, IUserChoosen } from 'src/app/models';
+import { ClothesService } from 'src/app/services/clothes/clothes.service';
 
 @Component({
   selector: 'app-view-card',
@@ -10,7 +12,7 @@ import { ICloth, IUserChoosen } from 'src/app/models';
 export class ViewCardComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ViewCardComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: ICloth) { }
+              @Inject(MAT_DIALOG_DATA) public data: ICloth, private clothesService: ClothesService) { }
   colors = [];
   colorsProperties: { [key: string]: any } = {};
   sizes = [];
@@ -20,6 +22,7 @@ export class ViewCardComponent implements OnInit {
   chosenItems: IUserChoosen ;
   currColor;
   currSize;
+  errorLogin = false;
 
   ngOnInit(): void {
     this.colors = Object.keys(this.data.properties);
@@ -74,12 +77,17 @@ export class ViewCardComponent implements OnInit {
     this.currSize = size;
   }
 
-  addToCart() {
-    this.chosenItems = {color: this.currColor, size: this.currSize}; 
-    if (this.currColor != undefined && this.currSize != undefined) {
-      this.dialogRef.close(this.data);
+  addToCart(nameClothes: string) {
+    this.chosenItems = {clothColor: this.currColor, clothSize: this.currSize, clothName: nameClothes}; 
+    if (this.currColor != undefined && this.currSize != undefined && localStorage.getItem('email')) {
+      this.clothesService.addToCart(localStorage.getItem('email'), this.chosenItems).subscribe(() => {
+        this.errorLogin = false
+         this.dialogRef.close(this.data);
+      });
     } else if (this.currColor != undefined || this.currSize != undefined) {
       this.errorMessage = true;
+    } else if (!localStorage.getItem('email')) {
+      this.errorLogin = true
     }
   }
 }

@@ -1,6 +1,7 @@
 <mat-card class="example-card">
     <img (click)='openViewCard()' class='image' mat-card-image src="{{this.cloth.img}}">
     <mat-card-content>
+      <div fxLayout="column" fxLayoutAlign="space-around start" style="min-height: 115px;" >
       <p>
         {{ cloth.name }}
       </p>
@@ -8,8 +9,6 @@
         <svg *ngFor="let color of colors" height="37" width="30">
         <circle cx="15" cy="25" r="10" stroke="grey" stroke-width="2" [attr.fill]=color />
       </svg>
+      </div>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)='addToFavorite()'>Favorite</button>
-    </mat-card-actions>
   </mat-card>

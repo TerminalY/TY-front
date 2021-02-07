@@ -24,12 +24,13 @@ export interface IClothFilter {
 
 export interface IUser {
     username: string;
-    email: string;
+    email?: string;
     password: string;
 }
 
 export interface IUserChoosen {
     id?: Number;
-    color: string;
-    size: string;
+    clothColor: string;
+    clothSize: string;
+    clothName: string
 }

@@ -41,7 +41,7 @@ export class ClothesComponent implements OnInit, OnChanges {
   @Input() prop: string;
   @Input() filterByType: {subtype: string, gender: string};
 
-  constructor(public clothService: ClothesService) { 
+  constructor(public clothService: ClothesService,) { 
     this.countProduct = new BehaviorSubject(0);
     this.countFavorite = new BehaviorSubject(0);
   }
@@ -83,9 +83,10 @@ export class ClothesComponent implements OnInit, OnChanges {
     this.value = 0;
   }
 
-  addToCart() {
-    this.countProduct.next(this.countProduct.getValue() + 1)
-    this.countItems.emit(this.countProduct.getValue());
+  async addToCart() {
+    const items = await this.clothService.getCartByEmail(localStorage.getItem('email'));
+    const count = items.clothes.length;
+    this.countItems.emit(count);
   }
 
   addToFavor() {

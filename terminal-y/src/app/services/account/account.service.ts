@@ -14,4 +14,9 @@ export class AccountService {
     const route = `${environment.backendAddress}/users`
     return this.http.post<IUser>(route, user);
   }
+
+  login(user: IUser): Observable<{name: string}> {
+    const route = `${environment.backendAddress}/login`;
+    return this.http.post<{name: string}>(route, user);
+  }
 }
