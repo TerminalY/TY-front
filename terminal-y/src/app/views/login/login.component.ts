@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     let emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.formGroup = this.formBuilder.group({
       'email': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
-      'password': [null, [Validators.required, this.checkPassword]],
+      'password': [null, [Validators.required]],
     });
   }
 
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
 
   getErrorPassword() {
     return this.formGroup.get('password').hasError('required') ? 'Field is required' :
-      this.formGroup.get('password').hasError('requirements') ? 'Must to contains 8 letter and at least 1 digit and one char anf big char' : '';
+      '';
   }
 
   async onSubmit(post) {
