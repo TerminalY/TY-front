@@ -25,7 +25,7 @@ export class PaymentComponent implements OnInit {
 
   async ngOnInit() {
     this.createForm();
-    this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
+    this.cartData = (await this.clothService.getCartByEmail(localStorage.getItem('email')));
 
   }
 

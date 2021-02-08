@@ -50,6 +50,16 @@
   }
 
   .cartDetails {
-    overflow-y: scroll;
+    overflow-y: hidden;
     width: auto;
+    height: 100%;
   }
+
+  .sizeDiv {
+    height: 100%;
+    overflow: hidden;
+}
+
+.payment {
+  background-color: white;
+}

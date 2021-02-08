@@ -61,8 +61,24 @@
 
   </mat-card>
     <mat-card class='cartDetails'>
-        <app-cart-items   [cartData]='cartData'></app-cart-items>
-      </mat-card>
+        <!-- <app-cart-items [cartData]='cartData'></app-cart-items> -->
+     
 
+      <div class='sizeDiv' fxLayout="column" fxLayoutAlign="space-around stretch" >
+        <div fxFlex='90' style="overflow-y: scroll;">
+          <!-- Items in the cart-->
+          <div *ngIf='cartData'>
+            <app-cart-items [cartData]='cartData.cart'></app-cart-items>
+        </div>
+        </div>
+        <div fxFlex='10'  fxLayout="row" fxLayoutAlign="space-around center" class='payment'>
+          <div fxLayout="column" fxLayoutAlign="space-around center">
+            <div><b>Total Price:</b></div>
+            <div *ngIf="cartData">{{ cartData.sum | number}}₪</div>
+            <div *ngIf="!cartData">0₪</div>
+          </div>
+        </div>
+      </div>
+    </mat-card>
   </div>
 

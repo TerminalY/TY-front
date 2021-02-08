@@ -13,7 +13,7 @@
           </svg>
         </div>
         <!--Profile-->
-        <div fxFlexOffset="48" fxFlex='37'>
+        <div fxFlexOffset="50" fxFlex='30'>
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap='15px'>
             <div >
               <form>
@@ -29,7 +29,6 @@
               <div class='Register' *ngIf='accountName'>
                 <button mat-button [matMenuTriggerFor]="menu"> Hi {{ accountName }} !</button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item >My Terminal Y</button>
                   <button mat-menu-item (click)='logout()'>Logout<mat-icon>exit_to_app</mat-icon></button>
                 </mat-menu>
               </div>
@@ -47,7 +46,7 @@
                       <button routerLink="/payment" class="button button5">Payment</button>
                       <div fxLayout="column" fxLayoutAlign="space-around center">
                         <div><b>Total Price:</b></div>
-                        <div *ngIf="cartData">{{ cartData.sum }}₪</div>
+                        <div *ngIf="cartData">{{ cartData.sum | number}}₪</div>
                         <div *ngIf="!cartData">0₪</div>
                       </div>
                     </div>

@@ -17,7 +17,7 @@ export class CardComponent implements OnInit {
   messageFavor = 'This item added to Favorite';
   chooseItems: IUserChoosen; 
   colors;
-  Items: any;
+  cart: any;
 
   @Input() cloth: ICloth;
 
@@ -31,8 +31,8 @@ export class CardComponent implements OnInit {
   }
 
   async addToCart() {
-    this.Items = await this.clothesService.getCartByEmail(localStorage.getItem('email'));
-    this.countItems = this.Items.clothes.length;
+    this.cart = (await this.clothesService.getCartByEmail(localStorage.getItem('email'))).cart;
+    this.countItems = this.cart.clothes.length;
     this.countCart.emit(this.countItems);
     this._snackBar.open(this.messageCart, null ,{
       duration: 2000,
