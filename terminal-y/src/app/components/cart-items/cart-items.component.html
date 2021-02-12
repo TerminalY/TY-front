@@ -13,7 +13,7 @@
                     <div fxLayout="row" fxLayoutAlign="space-between center">
                         <div fxFlex='30'><b>{{item.price}}₪</b></div>
                         <div fxFlexOffset='40' fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-                            <mat-icon class='cursor'>delete</mat-icon>
+                            <mat-icon (click)="delete(item)" class='cursor'>delete</mat-icon>
                         </div>
                     </div>
                 </div>

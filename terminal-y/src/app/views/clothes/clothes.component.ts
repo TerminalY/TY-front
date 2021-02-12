@@ -85,7 +85,7 @@ export class ClothesComponent implements OnInit, OnChanges {
 
   async addToCart() {
     const items = await this.clothService.getCartByEmail(localStorage.getItem('email'));
-    const count = items.clothes.length;
+    const count = items.cart.clothes.length;
     this.countItems.emit(count);
   }
 

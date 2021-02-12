@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ViewCardComponent } from 'src/app/dialogs/view-card/view-card.component';
-import { ICloth, IUserChoosen } from 'src/app/models';
+import { ICloth, IClothProperties } from 'src/app/models';
 import { ClothesService } from 'src/app/services/clothes/clothes.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class CardComponent implements OnInit {
   countFavorite = 0;
   messageCart = 'This item added to cart';
   messageFavor = 'This item added to Favorite';
-  chooseItems: IUserChoosen; 
+  chooseItems: IClothProperties; 
   colors;
   Items: any;
 
@@ -32,7 +32,7 @@ export class CardComponent implements OnInit {
 
   async addToCart() {
     this.Items = await this.clothesService.getCartByEmail(localStorage.getItem('email'));
-    this.countItems = this.Items.clothes.length;
+    this.countItems = this.Items.cart.clothes.length;
     this.countCart.emit(this.countItems);
     this._snackBar.open(this.messageCart, null ,{
       duration: 2000,

@@ -28,7 +28,7 @@ export interface IUser {
     password: string;
 }
 
-export interface IUserChoosen {
+export interface IClothProperties {
     id?: Number;
     clothColor: string;
     clothSize: string;

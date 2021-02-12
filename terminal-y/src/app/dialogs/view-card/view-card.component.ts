@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
-import { ICloth, IUserChoosen } from 'src/app/models';
+import { ICloth, IClothProperties } from 'src/app/models';
 import { ClothesService } from 'src/app/services/clothes/clothes.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class ViewCardComponent implements OnInit {
   sortSize = [];
   stateSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
   errorMessage = false;
-  chosenItems: IUserChoosen ;
+  chosenItems: IClothProperties ;
   currColor;
   currSize;
   errorLogin = false;
