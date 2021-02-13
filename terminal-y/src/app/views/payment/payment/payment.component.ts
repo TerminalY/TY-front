@@ -61,8 +61,12 @@ export class PaymentComponent implements OnInit {
     this.formGroup.get('creditcard').hasError('pattern') ? 'creditcard format invalid': '';
   }
 
-  onSubmit(post) {
-    
+  async changeSum(sum: number) {
+    this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
+  }
 
+  async onSubmit(post) {
+    await this.clothService.payment(localStorage.getItem('email'), post.address);
+    this.router.navigate(['']);
   }
 }

@@ -29,25 +29,27 @@
               <div class='Register' *ngIf='accountName'>
                 <button mat-button [matMenuTriggerFor]="menu"> Hi {{ accountName }} !</button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item >My Terminal Y</button>
                   <button mat-menu-item (click)='logout()'>Logout<mat-icon>exit_to_app</mat-icon></button>
                 </mat-menu>
               </div>
               <div>
-                <mat-icon class='icon' [matMenuTriggerFor]="menu" matBadge="{{countCart}}" (click)='getCart()' matBadgeColor="warn">shopping_cart</mat-icon>
+                <button style="border: 0;" [disabled]='cartData.cart == undefined'  [matMenuTriggerFor]="menu" (click)='getCart()'>
+                  <mat-icon class='icon' matBadge="{{countCart}}"  matBadgeColor="warn">shopping_cart</mat-icon>
+                </button>
+                
                 <mat-menu #menu="matMenu" class='cartMenu'>
                   <div class='sizeDiv' fxLayout="column" fxLayoutAlign="space-around stretch" (click)="$event.stopPropagation();" >
                     <div fxFlex='80' style="overflow-y: scroll;">
                       <!-- Items in the cart-->
                       <div *ngIf="cartData">
-                        <app-cart-items [cartData]='cartData.cart'></app-cart-items>
+                        <app-cart-items (sum)='changeSum($event)' [cartData]='cartData.cart'></app-cart-items>
                     </div>
                     </div>
                     <div fxFlex='15'  fxLayout="row" fxLayoutAlign="space-around center" class='payment'>
                       <button routerLink="/payment" class="button button5">Payment</button>
                       <div fxLayout="column" fxLayoutAlign="space-around center">
                         <div><b>Total Price:</b></div>
-                        <div *ngIf="cartData">{{ cartData.sum }}₪</div>
+                        <div *ngIf="cartData">{{ cartData.sum | number }}₪</div>
                         <div *ngIf="!cartData">0₪</div>
                       </div>
                     </div>

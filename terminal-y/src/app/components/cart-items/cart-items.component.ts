@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ClothesService } from 'src/app/services/clothes/clothes.service';
 
@@ -10,6 +10,7 @@ import { ClothesService } from 'src/app/services/clothes/clothes.service';
 export class CartItemsComponent implements OnInit, OnChanges {
   count = 1;
   @Input() cartData: Observable<any>;
+  @Output() sum = new EventEmitter<number>();
   cart: {clothes: any};
   constructor(private clothesService: ClothesService) { }
 
@@ -27,6 +28,8 @@ export class CartItemsComponent implements OnInit, OnChanges {
       
       // update cart data
       this.cart = (await this.clothesService.getCartByEmail(localStorage.getItem('email'))).cart;
+
+      this.sum.emit((await this.clothesService.getCartByEmail(localStorage.getItem('email'))).sum);
     }
   }
 }

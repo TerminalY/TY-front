@@ -84,10 +84,12 @@ export class ViewCardComponent implements OnInit {
         this.errorLogin = false
          this.dialogRef.close(this.data);
       });
-    } else if (this.currColor != undefined || this.currSize != undefined) {
+    } else if (this.currColor == undefined || this.currSize == undefined) {
       this.errorMessage = true;
     } else if (!localStorage.getItem('email')) {
       this.errorLogin = true
+      this.errorMessage = false;
+
     }
   }
 }

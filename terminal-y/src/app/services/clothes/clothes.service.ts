@@ -52,5 +52,10 @@ export class ClothesService {
     params = params.set('id', clothID);
     return this.http.get(route, {params}).toPromise();
   }
+
+  async payment(email: string, address:string): Promise<boolean> {
+    const route = `${environment.backendAddress}/order`;
+    return this.http.post<boolean>(route,  {email, address}).toPromise();
+  }
 }
 

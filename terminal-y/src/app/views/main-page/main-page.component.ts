@@ -15,7 +15,7 @@ export class MainPageComponent implements OnInit {
   countFavor = 0;
   accountName = undefined;
   searchValue = '';
-  cartData: any;
+  cartData: any = {cart: undefined, sum: 0};
   filterByType:{subtype: string, gender: string} = {subtype: '', gender: ''};
   
   filterSubtypeMen = [{name: 'Shirts', subtype: [{name: 'sleevless', isClicked: false}, {name: 'tshirts', isClicked: false}] },
@@ -39,7 +39,7 @@ export class MainPageComponent implements OnInit {
     this.accountName = localStorage.getItem('name');
     this.cartData    = await this.clothService.getCartByEmail(localStorage.getItem('email'));
 
-    if (this.cartData) {
+    if (this.cartData.cart) {
       this.changeCountCart(this.cartData.cart.clothes.length)
     } else {
       this.changeCountCart(0)
@@ -88,7 +88,16 @@ export class MainPageComponent implements OnInit {
   }
 
   async getCart() {
-    this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
+    try {
+      this.cartData = await this.clothService.getCartByEmail(localStorage.getItem('email'));
     this.changeCountCart(this.cartData.cart.clothes.length)
+    } catch(err) {
+      console.log('error');
+    }
+    
+  }
+
+  changeSum(sum: number) {
+    this.getCart()
   }
 }

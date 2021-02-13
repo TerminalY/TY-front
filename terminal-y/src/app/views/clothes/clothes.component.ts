@@ -152,7 +152,9 @@ export class ClothesComponent implements OnInit, OnChanges {
   }
 
   valueChanged($event) {
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: $event.value, name: this.searchValue, subtype: this.subtype, gender: this.gender });
+    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice:  $event.value, subtype: this.subtype, gender: this.gender}) :
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue, subtype: this.subtype, gender: this.gender})
+   // this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: $event.value, name: this.searchValue, subtype: this.subtype, gender: this.gender });
   }
 
 }

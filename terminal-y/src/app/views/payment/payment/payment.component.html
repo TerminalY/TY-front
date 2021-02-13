@@ -60,9 +60,20 @@
   
 
   </mat-card>
-    <mat-card class='cartDetails'>
-        <app-cart-items   [cartData]='cartData'></app-cart-items>
-      </mat-card>
+    <mat-card class='cartDetails'  >
+        <div fxLayout="column" fxLayoutAlign="space-around center" >
+          <div fxFlex='60'>
+          <div *ngIf="cartData">
+            <app-cart-items (sum)='changeSum($event)' [cartData]='cartData.cart'></app-cart-items>
+          </div>
+          </div>
 
+          <div fxFlex=40  *ngIf="cartData.cart"><b>Total Price:</b>{{ cartData.sum | number }}₪</div>
+          <div fxFlex=40 *ngIf="!cartData.cart"><b>Total Price:</b>0₪</div>
+        </div>
+      </mat-card>
+      
+   
+    
   </div>
 
