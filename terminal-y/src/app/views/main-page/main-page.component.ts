@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class MainPageComponent implements OnInit {
   title = 'terminal-y';
-  numberOfOnlineUsers = 1;
+  numberOfOnlineUsers ;
   countCart = 0;
   countFavor = 0;
   accountName = undefined;
@@ -100,4 +100,7 @@ export class MainPageComponent implements OnInit {
   changeSum(sum: number) {
     this.getCart()
   }
+
+
+  
 }

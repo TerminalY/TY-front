@@ -21,7 +21,9 @@ export class PaymentComponent implements OnInit {
   
 
   constructor(private formBuilder: FormBuilder,
-    private router: Router, private clothService: ClothesService) { }
+    private router: Router, private clothService: ClothesService) {
+      
+     }
 
   async ngOnInit() {
     this.createForm();

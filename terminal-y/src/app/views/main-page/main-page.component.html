@@ -33,7 +33,7 @@
                 </mat-menu>
               </div>
               <div>
-                <button style="border: 0;" [disabled]='cartData.cart == undefined'  [matMenuTriggerFor]="menu" (click)='getCart()'>
+                <button style="border: 0;" [disabled]='countCart  == 0'  [matMenuTriggerFor]="menu" (click)='getCart()'>
                   <mat-icon class='icon' matBadge="{{countCart}}"  matBadgeColor="warn">shopping_cart</mat-icon>
                 </button>
                 
