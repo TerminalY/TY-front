@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="center center" class='background-screen' style="background-image: url('/assets/login/couchbase.jpg');    height: 100%;
+<div fxLayout="column" fxLayoutAlign="center center" class='background-screen' style="height: 100%;
 ">
   <mat-card class="example-card">
     <div fxLayout="column" fxLayoutAlign="center stretch" class='login-card'>
@@ -45,7 +45,8 @@
                 <button mat-raised-button color="primary" type="submit" class="button"
                   [disabled]="!formGroup.valid">Login</button>
               </div>
-              <div  [ngClass]="!isError ? 'fontTrue' : 'fontFalse'"> {{ invalidErrorMsg }} </div>
+              <label *ngIf='invalidErrorLogin' style="color:red">The user or password incorrect</label>
+
             </div>
 
           </form>

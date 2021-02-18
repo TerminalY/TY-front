@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { BehaviorSubject, Observable, pipe} from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ICloth, IClothFilter } from 'src/app/models';
 import { ClothesService } from 'src/app/services/clothes/clothes.service';
 
@@ -8,7 +9,7 @@ import { ClothesService } from 'src/app/services/clothes/clothes.service';
   templateUrl: './clothes.component.html',
   styleUrls: ['./clothes.component.css']
 })
-export class ClothesComponent implements OnInit {
+export class ClothesComponent implements OnInit, OnChanges {
   panelOpenState = false;
   private countProduct: BehaviorSubject<number>;
   private countFavorite: BehaviorSubject<number>;
@@ -16,8 +17,8 @@ export class ClothesComponent implements OnInit {
 
   sizes =  [{size:'XS', isClicked: false}, {size:'S', isClicked: false}, {size:'M', isClicked: false}, {size:'L', isClicked: false}, 
   {size:'XL', isClicked: false}, {size:'XXL', isClicked: false} ];
-  colors = [{color:'#6b676b', isClicked: false, strokeWidth: 1}, {color:'#f587d8', isClicked: false, strokeWidth: 1}, {color:'#5ca83e', isClicked: false, strokeWidth: 1}, {color:'#2990ff', isClicked: false, strokeWidth: 1}, 
-  {color:'#ffffff', isClicked: false, strokeWidth: 1}, {color:'#292929', isClicked: false, strokeWidth:1}];
+  colors = [{color:'#6b676b', isClicked: false}, {color:'#f587d8', isClicked: false}, {color:'#5ca83e', isClicked: false}, {color:'#2990ff', isClicked: false}, 
+  {color:'#ffffff', isClicked: false}, {color:'#292929', isClicked: false}];
 
   // slider variables
   max = 1000;
@@ -27,14 +28,20 @@ export class ClothesComponent implements OnInit {
   value = 0;
   filterParams: IClothFilter = {};
   selectedSizes = [];
+  selectedColors = [];
+  searchValue = '';
+  subtype = '';
+  gender = '';
+  title: string;
 
   clothes$: Observable<ICloth>;
 
   @Output() countItems = new EventEmitter<number>();
   @Output() countFavor = new EventEmitter<number>();
+  @Input() prop: string;
+  @Input() filterByType: {subtype: string, gender: string};
 
-
-  constructor(public clothService: ClothesService) { 
+  constructor(public clothService: ClothesService,) { 
     this.countProduct = new BehaviorSubject(0);
     this.countFavorite = new BehaviorSubject(0);
   }
@@ -43,19 +50,43 @@ export class ClothesComponent implements OnInit {
     this.clothes$ = this.clothService.findClothes({});
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+    Object.keys(changes).forEach(element => {
+      switch(element) {
+        case "prop": {
+          this.searchValue = changes.prop.currentValue;   
+          this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value,  name: this.searchValue, subtype: this.subtype, gender: this.gender}) :
+          this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue, subtype: this.subtype, gender: this.gender}) 
+          break;
+        }
+        case "filterByType": {
+          this.subtype = changes.filterByType.currentValue.subtype;
+          this.gender = changes.filterByType.currentValue.gender;
+          // this.clothes$ = this.clothService.findClothes({subtype: this.subtype, gender: this.gender}) 
+          this.cleanAllFilter()
+          break;
+        }
+  
+      }
+    });    
+  }
+  
   cleanAllFilter() {
-    this.clothes$ = this.clothService.findClothes({});
+    this.clothes$ = this.clothService.findClothes({name: this.searchValue, subtype: this.subtype, gender: this.gender});
     this.sizes =  [{size:'XS', isClicked: false}, {size:'S', isClicked: false}, {size:'M', isClicked: false}, {size:'L', isClicked: false}, 
     {size:'XL', isClicked: false}, {size:'XXL', isClicked: false} ];
-    this.colors = [{color:'#6b676b', isClicked: false, strokeWidth: 1}, {color:'#f587d8', isClicked: false, strokeWidth: 1}, {color:'#5ca83e', isClicked: false, strokeWidth: 1}, {color:'#2990ff', isClicked: false, strokeWidth: 1}, 
-    {color:'#ffffff', isClicked: false, strokeWidth: 1}, {color:'#292929', isClicked: false, strokeWidth:1}];
+    this.colors = [{color:'#6b676b', isClicked: false}, {color:'#f587d8', isClicked: false}, {color:'#5ca83e', isClicked: false}, {color:'#2990ff', isClicked: false}, 
+    {color:'#ffffff', isClicked: false}, {color:'#292929', isClicked: false}];
     this.selectedSizes = [];
-
+    this.selectedColors = [];
+    this.value = 0;
   }
 
-  addToCart() {
-    this.countProduct.next(this.countProduct.getValue() + 1)
-    this.countItems.emit(this.countProduct.getValue());
+  async addToCart() {
+    const items = await this.clothService.getCartByEmail(localStorage.getItem('email'));
+    const count = items.cart.clothes.length;
+    this.countItems.emit(count);
   }
 
   addToFavor() {
@@ -65,6 +96,20 @@ export class ClothesComponent implements OnInit {
 
   formatLabel(value: number) {
     return value + '₪';
+  }
+
+  filterByColor(colorFilter: {color: string, isClicked: boolean}) {
+    this.selectedColors.push(colorFilter.color);
+    this.getClothesByColor(colorFilter);
+  }
+
+  deleteFilterByColor(colorFilter: {color: string, isClicked: boolean}) {
+    const index = this.selectedColors.indexOf(colorFilter.color);
+    if (index > -1) {
+      this.selectedColors.splice(index, 1);
+    }
+
+    this.getClothesByColor(colorFilter);
   }
 
   filterBySize(sizeFilter: {size: string, isClicked: boolean}) {
@@ -83,7 +128,8 @@ export class ClothesComponent implements OnInit {
   }
 
   private getClothesBySize(sizeFilter: {size: string, isClicked: boolean}) {
-    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes});
+    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value,  name: this.searchValue}) :
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors,name: this.searchValue, subtype: this.subtype, gender: this.gender})
     this.sizes.map(item => {
       if (item.size == sizeFilter.size) {
         return item.isClicked = !sizeFilter.isClicked 
@@ -91,6 +137,24 @@ export class ClothesComponent implements OnInit {
          return  item.isClicked;  
       } 
     });
+  }
+
+  private getClothesByColor(colorFilter: {color: string, isClicked: boolean}) {
+    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: this.value, subtype: this.subtype, gender: this.gender}) :
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue, subtype: this.subtype, gender: this.gender})
+    this.colors.map(item => {
+      if (item.color == colorFilter.color) {
+        return item.isClicked = !colorFilter.isClicked 
+      } else {
+         return  item.isClicked;  
+      } 
+    });
+  }
+
+  valueChanged($event) {
+    this.value > 0 ? this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice:  $event.value, subtype: this.subtype, gender: this.gender}) :
+    this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, name: this.searchValue, subtype: this.subtype, gender: this.gender})
+   // this.clothes$ = this.clothService.findClothes({size: this.selectedSizes, color: this.selectedColors, minPrice: 0, maxPrice: $event.value, name: this.searchValue, subtype: this.subtype, gender: this.gender });
   }
 
 }

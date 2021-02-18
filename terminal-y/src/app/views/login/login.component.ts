@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AccountService } from 'src/app/services/account/account.service';
+import { Router } from '@angular/router';
 
 export interface userLogin {
   email: string;
@@ -19,11 +21,12 @@ export class LoginComponent implements OnInit {
   hide = true;
   invalidErrorMsg = '';
   isError = true;
+  invalidErrorLogin = false;
   @Output() isLogin = new EventEmitter();
   @Output() signUp = new EventEmitter();
 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor( private router: Router, private formBuilder: FormBuilder, private accountService:AccountService ) { }
 
   ngOnInit() {
     localStorage.removeItem('username');
@@ -34,7 +37,7 @@ export class LoginComponent implements OnInit {
     let emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.formGroup = this.formBuilder.group({
       'email': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
-      'password': [null, [Validators.required, this.checkPassword]],
+      'password': [null, [Validators.required]],
     });
   }
 
@@ -64,11 +67,22 @@ export class LoginComponent implements OnInit {
 
   getErrorPassword() {
     return this.formGroup.get('password').hasError('required') ? 'Field is required' :
-      this.formGroup.get('password').hasError('requirements') ? 'Must to contains 8 letter and at least 1 digit and one char anf big char' : '';
+      '';
   }
 
   async onSubmit(post) {
     this.post = post;
+    this.accountService.login(post).subscribe(res => {
+      if(res) {
+        this.invalidErrorLogin = false;
+        localStorage.setItem('name', res.name);
+        localStorage.setItem('email', post.email);
+        this.router.navigate(['']);
+      } else {
+        this.invalidErrorLogin = true; 
+        console.error(res);
+      }
+  });;
   }
 
   signUpRequest() {

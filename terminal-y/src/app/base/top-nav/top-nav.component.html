@@ -1,0 +1,35 @@
+    <!--Upper nav-->
+    <nav class='WhiteHeader_upperBar'>
+        <div  fxLayout="row" fxLayoutAlign="start center" >
+          <!--Logo-->
+          <div fxFlex='25' class='WhiteHeader_left'>
+            <svg class='Logo' viewBox="0 0 600 250" >
+              <text class='Logo' x="50%" y="50%" fill="black" text-anchor="middle" >
+                Terminal Y
+              </text>
+            </svg>
+          </div>
+          <!--Profile-->
+          <div fxFlexOffset="48" fxFlex='37'>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap='15px'>
+              <div >
+                <form>
+                  <input type="search" placeholder="Search">
+                </form>
+              </div>
+                <div class='Login' routerLink="/login">
+                  Login
+                </div>
+                <div class='Register' routerLink="/register">
+                  Register
+                </div>
+                <div>
+                  <mat-icon class='icon' matBadge="{{countCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
+                </div>
+                <div>
+                  <mat-icon class='icon' matBadge="{{countFavor}}" matBadgeColor="warn">favorite</mat-icon>
+                </div>
+            </div>
+          </div>
+        </div>
+      </nav>

@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ViewCardComponent } from 'src/app/dialogs/view-card/view-card.component';
-import { ICloth, IUserChoosen } from 'src/app/models';
+import { ICloth, IClothProperties } from 'src/app/models';
+import { ClothesService } from 'src/app/services/clothes/clothes.service';
 
 @Component({
   selector: 'app-card',
@@ -14,22 +15,24 @@ export class CardComponent implements OnInit {
   countFavorite = 0;
   messageCart = 'This item added to cart';
   messageFavor = 'This item added to Favorite';
-  chooseItems: IUserChoosen; 
+  chooseItems: IClothProperties; 
   colors;
+  Items: any;
 
   @Input() cloth: ICloth;
 
   @Output() countCart = new EventEmitter<number>();
   @Output() countFavor = new EventEmitter<number>();
 
-  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog) { }
+  constructor(private _snackBar: MatSnackBar, public dialog: MatDialog, private clothesService: ClothesService) { }
 
   ngOnInit(): void {
     this.colors = Object.keys(this.cloth.properties);
   }
 
-  addToCart() {
-    this.countItems = this.countItems + 1;
+  async addToCart() {
+    this.Items = await this.clothesService.getCartByEmail(localStorage.getItem('email'));
+    this.countItems = this.Items.cart.clothes.length;
     this.countCart.emit(this.countItems);
     this._snackBar.open(this.messageCart, null ,{
       duration: 2000,

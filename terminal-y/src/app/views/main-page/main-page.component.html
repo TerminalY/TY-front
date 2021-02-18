@@ -17,11 +17,11 @@
           <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap='15px'>
             <div >
               <form>
-                <input type="search" placeholder="Search">
+                <input id='searchItem' type="search" placeholder="Search" (input)="onSearchChange($event.target.value)">
               </form>
             </div>
               <div class='Login' *ngIf='!accountName' routerLink="/login">
-                Login
+                Login 
               </div>
               <div class='Register' *ngIf='!accountName' routerLink="/register">
                 Register
@@ -29,34 +29,32 @@
               <div class='Register' *ngIf='accountName'>
                 <button mat-button [matMenuTriggerFor]="menu"> Hi {{ accountName }} !</button>
                 <mat-menu #menu="matMenu">
-                  <button mat-menu-item >My Terminal Y</button>
                   <button mat-menu-item (click)='logout()'>Logout<mat-icon>exit_to_app</mat-icon></button>
                 </mat-menu>
               </div>
               <div>
-                <mat-icon class='icon' [matMenuTriggerFor]="menu" matBadge="{{countCart}}" matBadgeColor="warn">shopping_cart</mat-icon>
-                <mat-menu #menu="matMenu" class='sizeMenu'>
+                <button style="border: 0;" [disabled]='countCart  == 0'  [matMenuTriggerFor]="menu" (click)='getCart()'>
+                  <mat-icon class='icon' matBadge="{{countCart}}"  matBadgeColor="warn">shopping_cart</mat-icon>
+                </button>
+                
+                <mat-menu #menu="matMenu" class='cartMenu'>
                   <div class='sizeDiv' fxLayout="column" fxLayoutAlign="space-around stretch" (click)="$event.stopPropagation();" >
                     <div fxFlex='80' style="overflow-y: scroll;">
                       <!-- Items in the cart-->
-                      <app-cart-items></app-cart-items>
-                      <app-cart-items></app-cart-items>
-                      <app-cart-items></app-cart-items>
-                      <app-cart-items></app-cart-items>
-
+                      <div *ngIf="cartData">
+                        <app-cart-items (sum)='changeSum($event)' [cartData]='cartData.cart'></app-cart-items>
+                    </div>
                     </div>
                     <div fxFlex='15'  fxLayout="row" fxLayoutAlign="space-around center" class='payment'>
-                      <button class="button button5">Payment</button>
+                      <button routerLink="/payment" class="button button5">Payment</button>
                       <div fxLayout="column" fxLayoutAlign="space-around center">
                         <div><b>Total Price:</b></div>
-                        <div>1,426₪</div>
+                        <div *ngIf="cartData">{{ cartData.sum | number }}₪</div>
+                        <div *ngIf="!cartData">0₪</div>
                       </div>
                     </div>
                   </div>
                 </mat-menu>
-              </div>
-              <div>
-                <mat-icon class='icon' matBadge="{{countFavor}}" matBadgeColor="warn">favorite</mat-icon>
               </div>
           </div>
         </div>
@@ -65,43 +63,70 @@
   
     <!--Lower nav-->
     <nav class='WhiteHeader_lowerBar'>
-      <div>
-        <button class='menBtn' mat-button [matMenuTriggerFor]="kindMenu">Men</button>
-        <button class='womenBtn' mat-button [matMenuTriggerFor]="kindMenu">Women</button>
-        <mat-menu #kindMenu="matMenu" xPosition="after" class='sizeMenu'>
-            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" >
-              <div fxFlexOffset='15' fxFlex='35'>
-                <strong><u>Suits</u></strong>
-                <p>test1</p>
-                <p>test1</p>
-                <p>test1</p>
-                <p>test1</p>
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxFlex='20' > 
+          <button class='menBtn' mat-button [matMenuTriggerFor]="menMenu">Men</button>
+          <button class='womenBtn' mat-button [matMenuTriggerFor]="womenMenu">Women</button>
+          <mat-menu #menMenu="matMenu" xPosition="after" class='sizeMenu'>
+           <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+            <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">    
+              <div class='menuDesign' fxFlex='47.5'>
+                <div fxFlexOffset='10' fxFlex='35' *ngFor='let item of filterSubtypeMen'>
+                <strong><u>{{item.name}}</u></strong>
+                <ng-container *ngFor='let sub of item.subtype'>
+                  <div class='type' *ngIf='!sub.isClicked' (click)='getSubtypeClothes(sub,sub.name, "m")'>{{sub.name}}</div>
+                  <div class='type' *ngIf='sub.isClicked' (click)='deleteSubtypeClothes(sub)' style="color:grey;font-weight: bold;">{{sub.name}}</div>
+                </ng-container>
+                
               </div>
-              <div fxFlexOffset='15' fxFlex='35'>
-                <strong><u>T-shirts</u></strong>
-                <p>test1</p>
-                <p>test1</p>
-                <p>test1</p>
-                <p>test1</p>
-              </div>
-              <div fxFlexOffset='15' fxFlex='35'>
-                <strong><u>Socks</u></strong>
-                <p>test1</p>
-                <p>test1</p>
-                <p>test1</p>
-                <p>test1</p>
-              </div>
-              <div fxFlexOffset='15' fxFlex='35'>
-                <strong><u>Shoes</u></strong>
-                <p>test1</p>
-                <p>test1</p>
-                <p>test1</p>
-                <p>test1</p>
-              </div>
+            </div>
+              <div class='menuDesign' fxFlexOffset='5' fxFlex='47.5'>
+                <div fxFlexOffset='10' fxFlex='35' *ngFor='let item of filterSubtypeMenSecond'>
+                  <strong><u>{{item.name}}</u></strong>
+                  <ng-container *ngFor='let sub of item.subtype'>
+                    <div class='type' *ngIf='!sub.isClicked' (click)='getSubtypeClothes(sub,sub.name, "m")'>{{sub.name}}</div>
+                    <div class='type' *ngIf='sub.isClicked' (click)='deleteSubtypeClothes(sub)' style="color:grey;font-weight: bold;">{{sub.name}}</div>
+                  </ng-container>
+                  
+                </div>
+            </div>
+          </div>
         </div>
-        </mat-menu>
+       
+          </mat-menu>
+          <mat-menu #womenMenu="matMenu" xPosition="after" class='sizeMenu'>
+          <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+           <div fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%;">    
+             <div class='menuDesign' fxFlex='47.5'>
+              <div fxFlexOffset='10' fxFlex='35' *ngFor='let item of filterSubtypeWomen'>
+                <strong><u>{{item.name}}</u></strong>
+                <ng-container *ngFor='let sub of item.subtype'>
+                  <div class='type' *ngIf='!sub.isClicked' (click)='getSubtypeClothes(sub,sub.name, "f")'>{{sub.name}}</div>
+                  <div class='type' *ngIf='sub.isClicked' (click)='deleteSubtypeClothes(sub)' style="color:grey;font-weight: bold;">{{sub.name}}</div>
+                </ng-container>
+                
+              </div>
+           </div>
+             <div class='menuDesign' fxFlexOffset='5' fxFlex='47.5'>
+              <div fxFlexOffset='10' fxFlex='35' *ngFor='let item of filterSubtypeWomenSecond'>
+                <strong><u>{{item.name}}</u></strong>
+                <ng-container *ngFor='let sub of item.subtype'>
+                  <div class='type' *ngIf='!sub.isClicked' (click)='getSubtypeClothes(sub,sub.name, "f")'>{{sub.name}}</div>
+                  <div class='type' *ngIf='sub.isClicked' (click)='deleteSubtypeClothes(sub)' style="color:grey;font-weight: bold;">{{sub.name}}</div>
+                </ng-container>
+                
+              </div>
+           </div>
+         </div>
+       </div>
+      
+         </mat-menu>
+        </div>
+        <div fxFlex fxFlexOffset='67' style="font-size: 20px;">
+          Online Users: {{numberOfOnlineUsers}}
+        </div>
       </div>
     </nav>
   </header>
-  <app-clothes (countItems)='changeCountCart($event)' (countFavor)='changeCountFavor($event)'></app-clothes>
+  <app-clothes [prop]='searchValue' [filterByType]='filterByType' (countItems)='changeCountCart($event)' (countFavor)='changeCountFavor($event)'></app-clothes>
   

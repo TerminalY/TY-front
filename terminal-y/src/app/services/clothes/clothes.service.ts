@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { IClothFilter } from '../../models/index';
+import { IClothFilter, IClothProperties } from '../../models/index';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +19,9 @@ export class ClothesService {
     
     Object.keys(cloth).forEach(key => {
       if(cloth[key] != undefined) {
-        if (cloth.size.length > 1) {
+        if ((key === 'size' || key === 'color') && cloth[key].length > 1) {
           // params = params.set(key, cloth[key]);
-          cloth.size.forEach(item => {
+          cloth[key].forEach(item => {
             params = params.append(key,item);
           })
         } else {
@@ -33,6 +33,29 @@ export class ClothesService {
     return this.http.get(route, {
       params
     });
+  }
+
+  getCartByEmail(email: string): Promise<any> {
+    const route = `${environment.backendAddress}/users/${email}/getCart`;
+    return this.http.get(route).toPromise();
+  }
+
+  addToCart(email: string, userChosen: IClothProperties): Observable<any> {
+    const route = `${environment.backendAddress}/users/${email}/addToCart`;
+    return this.http.post<any>(route, userChosen);
+  }
+
+  deleteFromCart(email: string, clothID): Promise<any> {
+    const route = `${environment.backendAddress}/cart/deleteitem`;
+    let params = new HttpParams();
+    params = params.set('email', email);
+    params = params.set('id', clothID);
+    return this.http.get(route, {params}).toPromise();
+  }
+
+  async payment(email: string, address:string): Promise<boolean> {
+    const route = `${environment.backendAddress}/order`;
+    return this.http.post<boolean>(route,  {email, address}).toPromise();
   }
 }
 

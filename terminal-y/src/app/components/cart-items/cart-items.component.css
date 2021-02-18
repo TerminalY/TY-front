@@ -6,3 +6,7 @@
 .cursor {
     cursor: pointer;
 }
+
+.strokeEffect:hover {
+    stroke-width: 3;
+}

@@ -14,13 +14,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainPageComponent } from './views/main-page/main-page.component';
 import { ViewCardComponent } from './dialogs/view-card/view-card.component';
 import { CartItemsComponent } from './components/cart-items/cart-items.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { PaymentComponent } from './views/payment/payment/payment.component';
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 
 const appRoutes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
-
-  
+  { path: 'register', component: RegisterComponent },
+  { path: 'payment', component: PaymentComponent}
 ];
 
 @NgModule({
@@ -32,7 +36,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     MainPageComponent,
     ViewCardComponent,
-    CartItemsComponent
+    CartItemsComponent,
+    PaymentComponent
   ],
   exports: [RouterModule],
   imports: [
@@ -44,9 +49,11 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    )
+      appRoutes
+      // { enableTracing: true } // <-- debugging purposes only
+    ),
+    SocketIoModule.forRoot(config)
+
   ],
   entryComponents: [ViewCardComponent],
   providers: [],

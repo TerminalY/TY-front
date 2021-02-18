@@ -14,21 +14,23 @@ export interface IClothFilter {
     name?: string;
     type?: string;
     size?: string[];
-    lowPrice?: Number;
-    highPrice?: Number;
-    color?: string;
+    minPrice?: Number;
+    maxPrice?: Number;
+    color?: string[];
     amount?: Number;
     gender?: string;
+    subtype?: string;
 }
 
 export interface IUser {
-    userName: string;
-    email: string;
+    username: string;
+    email?: string;
     password: string;
 }
 
-export interface IUserChoosen {
+export interface IClothProperties {
     id?: Number;
-    color: string;
-    size: string;
+    clothColor: string;
+    clothSize: string;
+    clothName: string
 }
